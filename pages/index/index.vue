@@ -83,7 +83,7 @@
             <view class="count-number">{{ prepareCount }}</view>
             <view class="count-text">请保证全身出现在手机屏幕中</view>
           </view>
-          <view class="skip-btn" @click="goStage2">跳过</view>
+          <view class="skip-btn" @click="goStage2">跳过1</view>
         </view>
       </view>
     </view>
@@ -200,7 +200,17 @@ export default {
 
         try {
           ref.srcObject = this.cameraStream;
+          setTimeout(() => {
+            ref.muted = true;
+            ref.setAttribute('playsinline', true);
 
+            const playPromise = ref.play();
+            if (playPromise) {
+              playPromise.catch(() => {
+                console.warn('自动播放失败，需要用户交互');
+              });
+            }
+          }, 100);
           if (typeof ref.play === 'function') {
             const res = ref.play();
 
