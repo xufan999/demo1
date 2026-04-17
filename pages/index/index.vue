@@ -160,7 +160,6 @@ export default {
     },
   },
   mounted() {
-    console.log('2222');
     const query = this.getQuery();
     console.log(query, '1');
     this.uid = query.uid || '';
@@ -560,17 +559,15 @@ export default {
       await this.startCamera();
     },
     initCurrentTask() {
-      this.currentTask = this.taskList[this.currentIndex] || {};
-      this.videoUrl = this.currentTask?.video?.video_url || '';
-      // this.videoUrl =
-      //   'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
-      this.currentTitle =
-        this.currentTask.title || this.currentTask?.video?.title || '';
-      if (!this.videoUrl) {
-        this.playNextTask();
-        return false;
-      }
-      return true;
+      const task = this.taskList[this.currentIndex];
+      if (!task) return false;
+
+      this.currentTask = task;
+      this.videoUrl = task.video?.video_url || '';
+      this.currentTitle = task.title || task.video?.title || '';
+
+      // 这里不再调用 playNextTask，只返回一个布尔值告诉外部是否成功
+      return !!this.videoUrl;
     },
     showTitleBeforeVideo() {
       clearInterval(this.titleTimer);
@@ -676,22 +673,32 @@ export default {
       }
     },
     async playNextTask() {
-      this.poseFrames = []; // ✅ 清空
+      this.poseFrames = [];
       this.hasSentNew = false;
-      this.currentIndex++;
-      if (this.currentIndex >= this.taskList.length) {
+
+      // 核心改动：用一个循环找到下一个带有有效 videoUrl 的任务
+      let found = false;
+      while (this.currentIndex < this.taskList.length - 1) {
+        this.currentIndex++; // 移动到下一个
+        if (this.initCurrentTask()) {
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        // 如果找完了都没找到有效任务，直接结束
         setTimeout(() => {
           this.finishTrain();
         }, 500);
         return;
       }
+
+      // 找到了有效任务
       this.middleCount = 0;
       this.middleTimer = null;
       this.hasShownTitle = false;
-      const valid = this.initCurrentTask();
-      if (valid) {
-        this.showTitleBeforeVideo();
-      }
+      this.showTitleBeforeVideo();
     },
     async finishTrain() {
       try {
