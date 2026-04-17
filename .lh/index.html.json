@@ -1,0 +1,90 @@
+{
+    "sourceFile": "index.html",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 18,
+            "patches": [
+                {
+                    "date": 1752560017942,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752560032459,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,7 +19,8 @@\n   <div id=\"app\"><!--app-html--></div>\n   <script type=\"module\" src=\"/main.js\"></script>\n   <script\n     src=\"https://api.map.baidu.com/reverse_geocoding/v3/?ak=${ak}&output=json&coordtype=gcj02&location=${latitude},${longitude}\"></script>\n+  <script src=\"https://api.map.baidu.com/api?v=3.0&ak=你的AK\"></script>\n </body>\n \n </html>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1752560049797,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,8 +19,8 @@\n   <div id=\"app\"><!--app-html--></div>\n   <script type=\"module\" src=\"/main.js\"></script>\n   <script\n     src=\"https://api.map.baidu.com/reverse_geocoding/v3/?ak=${ak}&output=json&coordtype=gcj02&location=${latitude},${longitude}\"></script>\n-  <script src=\"https://api.map.baidu.com/api?v=3.0&ak=你的AK\"></script>\n+  <script src=\"https://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61\"></script>\n </body>\n \n </html>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1752560056027,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,10 +17,8 @@\n \n <body>\n   <div id=\"app\"><!--app-html--></div>\n   <script type=\"module\" src=\"/main.js\"></script>\n-  <script\n-    src=\"https://api.map.baidu.com/reverse_geocoding/v3/?ak=${ak}&output=json&coordtype=gcj02&location=${latitude},${longitude}\"></script>\n   <script src=\"https://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61\"></script>\n </body>\n \n </html>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1752560166748,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,8 +9,9 @@\n     document.write(\n       '<meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' +\n       (coverSupport ? ', viewport-fit=cover' : '') + '\" />')\n   </script>\n+  <script src=\"https://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61\"></script>\n   <title></title>\n   <!--preload-links-->\n   <!--app-context-->\n </head>\n"
+                },
+                {
+                    "date": 1752560179145,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,15 +11,12 @@\n       (coverSupport ? ', viewport-fit=cover' : '') + '\" />')\n   </script>\n   <script src=\"https://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61\"></script>\n   <title></title>\n-  <!--preload-links-->\n-  <!--app-context-->\n </head>\n \n <body>\n   <div id=\"app\"><!--app-html--></div>\n   <script type=\"module\" src=\"/main.js\"></script>\n-  <script src=\"https://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61\"></script>\n </body>\n \n </html>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1752560185638,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,21 @@\n+<!DOCTYPE html>\n+<html lang=\"en\">\n+\n+<head>\n+  <meta charset=\"UTF-8\" />\n+  <script>\n+    var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||\n+      CSS.supports('top: constant(a)'))\n+    document.write(\n+      '<meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' +\n+      (coverSupport ? ', viewport-fit=cover' : '') + '\" />')\n+  </script>\n+  <title></title>\n+</head>\n+\n+<body>\n+  <div id=\"app\"><!--app-html--></div>\n+  <script type=\"module\" src=\"/main.js\"></script>\n+</body>\n+\n+</html>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1752560881336,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,27 +17,5 @@\n   <div id=\"app\"><!--app-html--></div>\n   <script type=\"module\" src=\"/main.js\"></script>\n </body>\n \n-</html>\n-<!DOCTYPE html>\n-<html lang=\"en\">\n-\n-<head>\n-  <meta charset=\"UTF-8\" />\n-  <script>\n-    var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||\n-      CSS.supports('top: constant(a)'))\n-    document.write(\n-      '<meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' +\n-      (coverSupport ? ', viewport-fit=cover' : '') + '\" />')\n-  </script>\n-  <script src=\"https://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61\"></script>\n-  <title></title>\n-</head>\n-\n-<body>\n-  <div id=\"app\"><!--app-html--></div>\n-  <script type=\"module\" src=\"/main.js\"></script>\n-</body>\n-\n </html>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1752560898889,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n <html lang=\"en\">\n \n <head>\n   <meta charset=\"UTF-8\" />\n+  <script src=\"https://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61\"></script>\n   <script>\n     var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||\n       CSS.supports('top: constant(a)'))\n     document.write(\n"
+                },
+                {
+                    "date": 1752560940208,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,8 @@\n <html lang=\"en\">\n \n <head>\n   <meta charset=\"UTF-8\" />\n-  <script src=\"https://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61\"></script>\n   <script>\n     var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||\n       CSS.supports('top: constant(a)'))\n     document.write(\n"
+                },
+                {
+                    "date": 1752561292495,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n <html lang=\"en\">\n \n <head>\n   <meta charset=\"UTF-8\" />\n+  <script type=\"text/javascript\" src=\"http://api.map.baidu.com/api?v=2.0&ak=你的API密钥\"></script>\n   <script>\n     var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||\n       CSS.supports('top: constant(a)'))\n     document.write(\n"
+                },
+                {
+                    "date": 1752561298972,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n <html lang=\"en\">\n \n <head>\n   <meta charset=\"UTF-8\" />\n-  <script type=\"text/javascript\" src=\"http://api.map.baidu.com/api?v=2.0&ak=你的API密钥\"></script>\n+  <script type=\"text/javascript\" src=\"http://api.map.baidu.com/api?v=2.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61\"></script>\n   <script>\n     var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||\n       CSS.supports('top: constant(a)'))\n     document.write(\n"
+                },
+                {
+                    "date": 1752561369131,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n <html lang=\"en\">\n \n <head>\n   <meta charset=\"UTF-8\" />\n-  <script type=\"text/javascript\" src=\"http://api.map.baidu.com/api?v=2.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61\"></script>\n+  <script type=\"text/javascript\" src=\"http://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61\"></script>\n   <script>\n     var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||\n       CSS.supports('top: constant(a)'))\n     document.write(\n"
+                },
+                {
+                    "date": 1752561482318,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,10 @@\n <html lang=\"en\">\n \n <head>\n   <meta charset=\"UTF-8\" />\n+  <script src=\"https://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61&callback=onBMapLoad\" async\n+    defer></script>\n   <script type=\"text/javascript\" src=\"http://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61\"></script>\n   <script>\n     var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||\n       CSS.supports('top: constant(a)'))\n"
+                },
+                {
+                    "date": 1752561511416,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,8 @@\n <head>\n   <meta charset=\"UTF-8\" />\n   <script src=\"https://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61&callback=onBMapLoad\" async\n     defer></script>\n-  <script type=\"text/javascript\" src=\"http://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61\"></script>\n   <script>\n     var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||\n       CSS.supports('top: constant(a)'))\n     document.write(\n@@ -18,7 +17,14 @@\n \n <body>\n   <div id=\"app\"><!--app-html--></div>\n   <script type=\"module\" src=\"/main.js\"></script>\n+  <script>\n+    function onBMapLoad() {\n+      console.log('BMapGL 加载完成');\n+      // 你也可以触发Vue事件或调用Vue方法通知地图库加载成功\n+      window.dispatchEvent(new Event('BMapLoaded'));\n+    }\n+  </script>\n </body>\n \n </html>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1752561588754,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,10 +2,9 @@\n <html lang=\"en\">\n \n <head>\n   <meta charset=\"UTF-8\" />\n-  <script src=\"https://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61&callback=onBMapLoad\" async\n-    defer></script>\n+  <script src=\"https://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61&callback=onBMapLoad\"></script>\n   <script>\n     var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||\n       CSS.supports('top: constant(a)'))\n     document.write(\n"
+                },
+                {
+                    "date": 1752561598646,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,14 +16,8 @@\n \n <body>\n   <div id=\"app\"><!--app-html--></div>\n   <script type=\"module\" src=\"/main.js\"></script>\n-  <script>\n-    function onBMapLoad() {\n-      console.log('BMapGL 加载完成');\n-      // 你也可以触发Vue事件或调用Vue方法通知地图库加载成功\n-      window.dispatchEvent(new Event('BMapLoaded'));\n-    }\n-  </script>\n+\n </body>\n \n </html>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1752561867932,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,7 @@\n \n <body>\n   <div id=\"app\"><!--app-html--></div>\n   <script type=\"module\" src=\"/main.js\"></script>\n-\n </body>\n \n </html>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1752562505395,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,8 @@\n <html lang=\"en\">\n \n <head>\n   <meta charset=\"UTF-8\" />\n-  <script src=\"https://api.map.baidu.com/api?v=3.0&ak=N1xA7KoveCRTEUS5qnUcRScX6GG7ov61&callback=onBMapLoad\"></script>\n   <script>\n     var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||\n       CSS.supports('top: constant(a)'))\n     document.write(\n"
+                }
+            ],
+            "date": 1752560017942,
+            "name": "Commit-0",
+            "content": "<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n  <meta charset=\"UTF-8\" />\n  <script>\n    var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||\n      CSS.supports('top: constant(a)'))\n    document.write(\n      '<meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' +\n      (coverSupport ? ', viewport-fit=cover' : '') + '\" />')\n  </script>\n  <title></title>\n  <!--preload-links-->\n  <!--app-context-->\n</head>\n\n<body>\n  <div id=\"app\"><!--app-html--></div>\n  <script type=\"module\" src=\"/main.js\"></script>\n  <script\n    src=\"https://api.map.baidu.com/reverse_geocoding/v3/?ak=${ak}&output=json&coordtype=gcj02&location=${latitude},${longitude}\"></script>\n</body>\n\n</html>"
+        }
+    ]
+}

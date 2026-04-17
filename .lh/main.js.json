@@ -1,0 +1,18 @@
+{
+    "sourceFile": "main.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1752551364202,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1752551364202,
+            "name": "Commit-0",
+            "content": "import App from './App'\n\n// #ifndef VUE3\nimport Vue from 'vue'\nimport './uni.promisify.adaptor'\nimport uView from \"uview-ui\";\nVue.use(uView);\nVue.config.productionTip = false\nApp.mpType = 'app'\nconst app = new Vue({\n  ...App\n})\napp.$mount()\n// #endif\n\n// #ifdef VUE3\nimport { createSSRApp } from 'vue'\nexport function createApp() {\n  const app = createSSRApp(App)\n  return {\n    app\n  }\n}\n// #endif"
+        }
+    ]
+}

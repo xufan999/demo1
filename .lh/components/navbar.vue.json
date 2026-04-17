@@ -1,0 +1,150 @@
+{
+    "sourceFile": "components/navbar.vue",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 33,
+            "patches": [
+                {
+                    "date": 1752549339721,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752549380916,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,10 +44,11 @@\n <style scoped>\r\n /* 样式略，保持你原有的即可 */\r\n .navbar {\r\n   display: flex;\r\n-  justify-content: space-between;\r\n-  padding: 20rpx;\r\n+  justify-content: end;\r\n+  padding: 20px 0;\r\n+  flex-wrap: wrap;\r\n }\r\n .nav-link {\r\n   padding: 10rpx 20rpx;\r\n   color: rgba(255, 255, 255, 0.6);\r\n"
+                },
+                {
+                    "date": 1752549400219,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,25 +48,47 @@\n   justify-content: end;\r\n   padding: 20px 0;\r\n   flex-wrap: wrap;\r\n }\r\n+.nav-links {\r\n+  display: flex;\r\n+  gap: 20rpx;\r\n+}\r\n+\r\n .nav-link {\r\n-  padding: 10rpx 20rpx;\r\n-  color: rgba(255, 255, 255, 0.6);\r\n+  position: relative;\r\n+  padding: 10rpx 0rpx;\r\n+  font-size: 28rpx;\r\n+  color: rgba(255, 255, 255, 0.8);\r\n+  transition: background 0.3s, color 0.3s;\r\n+  border-radius: 8rpx;\r\n }\r\n+\r\n+.nav-link:hover {\r\n+  color: #fff;\r\n+}\r\n+\r\n .nav-link.active {\r\n+  font-weight: 600;\r\n   color: #fff;\r\n-  font-weight: bold;\r\n-  position: relative;\r\n }\r\n .nav-link.active::after {\r\n   content: '';\r\n   position: absolute;\r\n-  bottom: -4rpx;\r\n+  bottom: -6rpx;\r\n   left: 50%;\r\n   transform: translateX(-50%);\r\n-  width: 40rpx;\r\n+  width: 70rpx;\r\n   height: 4rpx;\r\n-  background-color: #00c6ff;\r\n+  background: #00c6ff;\r\n   border-radius: 2rpx;\r\n }\r\n+\r\n+.auth-buttons {\r\n+  display: flex;\r\n+  gap: 10px;\r\n+}\r\n+\r\n+.auth-btn {\r\n+  font-size: 14px;\r\n+}\r\n </style>\r\n"
+                },
+                {
+                    "date": 1752549966194,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n   data() {\r\n     return {\r\n       navList: [\r\n         { name: '首页', url: '/pages/index/index' },\r\n-        { name: '运动广场', url: '/pages/square/index' },\r\n+        { name: '运动广场', url: '/subpkg/community/index' },\r\n         { name: '运动福利', url: '/pages/benefits/index' },\r\n         { name: '个人中心', url: '/pages/user/index' },\r\n         { name: '登录', url: '/pages/login/index' },\r\n       ],\r\n"
+                },
+                {
+                    "date": 1752550086290,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n     return {\r\n       navList: [\r\n         { name: '首页', url: '/pages/index/index' },\r\n         { name: '运动广场', url: '/subpkg/community/index' },\r\n-        { name: '运动福利', url: '/pages/benefits/index' },\r\n+        { name: '运动福利', url: '/subpkg/benefits/index' },\r\n         { name: '个人中心', url: '/pages/user/index' },\r\n         { name: '登录', url: '/pages/login/index' },\r\n       ],\r\n     };\r\n"
+                },
+                {
+                    "date": 1752550092890,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,10 +24,10 @@\n     return {\r\n       navList: [\r\n         { name: '首页', url: '/pages/index/index' },\r\n         { name: '运动广场', url: '/subpkg/community/index' },\r\n-        { name: '运动福利', url: '/subpkg/benefits/index' },\r\n-        { name: '个人中心', url: '/pages/user/index' },\r\n+        { name: '运动福利', url: '/subpkg/store/index' },\r\n+        { name: '个人中心', url: '/subpkg/user/index' },\r\n         { name: '登录', url: '/pages/login/index' },\r\n       ],\r\n     };\r\n   },\r\n"
+                },
+                {
+                    "date": 1752550099339,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,10 +25,10 @@\n       navList: [\r\n         { name: '首页', url: '/pages/index/index' },\r\n         { name: '运动广场', url: '/subpkg/community/index' },\r\n         { name: '运动福利', url: '/subpkg/store/index' },\r\n-        { name: '个人中心', url: '/subpkg/user/index' },\r\n-        { name: '登录', url: '/pages/login/index' },\r\n+        { name: '个人中心', url: '/subpkg/person/index' },\r\n+        { name: '登录', url: '/subpkg/login/index' },\r\n       ],\r\n     };\r\n   },\r\n   methods: {\r\n"
+                },
+                {
+                    "date": 1752556899484,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n         { name: '首页', url: '/pages/index/index' },\r\n         { name: '运动广场', url: '/subpkg/community/index' },\r\n         { name: '运动福利', url: '/subpkg/store/index' },\r\n         { name: '个人中心', url: '/subpkg/person/index' },\r\n-        { name: '登录', url: '/subpkg/login/index' },\r\n+        // { name: '登录', url: '/subpkg/login/index' },\r\n       ],\r\n     };\r\n   },\r\n   methods: {\r\n"
+                },
+                {
+                    "date": 1752556969171,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,9 @@\n <style scoped>\r\n /* 样式略，保持你原有的即可 */\r\n .navbar {\r\n   display: flex;\r\n-  justify-content: end;\r\n+  justify-content: center;\r\n   padding: 20px 0;\r\n   flex-wrap: wrap;\r\n }\r\n .nav-links {\r\n"
+                },
+                {
+                    "date": 1752557754654,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n         { name: '首页', url: '/pages/index/index' },\r\n         { name: '运动广场', url: '/subpkg/community/index' },\r\n         { name: '运动福利', url: '/subpkg/store/index' },\r\n         { name: '个人中心', url: '/subpkg/person/index' },\r\n-        // { name: '登录', url: '/subpkg/login/index' },\r\n+        { name: '登录', url: '/subpkg/login/index' },\r\n       ],\r\n     };\r\n   },\r\n   methods: {\r\n"
+                },
+                {
+                    "date": 1752558079379,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,15 +21,9 @@\n     current: String, // 当前激活项\r\n   },\r\n   data() {\r\n     return {\r\n-      navList: [\r\n-        { name: '首页', url: '/pages/index/index' },\r\n-        { name: '运动广场', url: '/subpkg/community/index' },\r\n-        { name: '运动福利', url: '/subpkg/store/index' },\r\n-        { name: '个人中心', url: '/subpkg/person/index' },\r\n-        { name: '登录', url: '/subpkg/login/index' },\r\n-      ],\r\n+      navList: [],\r\n     };\r\n   },\r\n   methods: {\r\n     navigate(item) {\r\n@@ -44,9 +38,9 @@\n <style scoped>\r\n /* 样式略，保持你原有的即可 */\r\n .navbar {\r\n   display: flex;\r\n-  justify-content: center;\r\n+  justify-content: end;\r\n   padding: 20px 0;\r\n   flex-wrap: wrap;\r\n }\r\n .nav-links {\r\n"
+                },
+                {
+                    "date": 1752558097265,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,8 +24,15 @@\n     return {\r\n       navList: [],\r\n     };\r\n   },\r\n+  onLoad(){\r\n+      { name: '首页', url: '/pages/index/index' },\r\n+        { name: '运动广场', url: '/subpkg/community/index' },\r\n+        { name: '运动福利', url: '/subpkg/store/index' },\r\n+        { name: '个人中心', url: '/subpkg/person/index' },\r\n+        { name: '登录', url: '/subpkg/login/index' },\r\n+  },\r\n   methods: {\r\n     navigate(item) {\r\n       if (item.url !== this.$page.fullPath) {\r\n         uni.navigateTo({ url: item.url });\r\n"
+                },
+                {
+                    "date": 1752558138029,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,14 +24,19 @@\n     return {\r\n       navList: [],\r\n     };\r\n   },\r\n-  onLoad(){\r\n-      { name: '首页', url: '/pages/index/index' },\r\n+  onLoad() {\r\n+    this.token = uni.getStorageSync('token');\r\n+    if (!this.token) {\r\n+      this.navList = [\r\n+        { name: '首页', url: '/pages/index/index' },\r\n         { name: '运动广场', url: '/subpkg/community/index' },\r\n         { name: '运动福利', url: '/subpkg/store/index' },\r\n         { name: '个人中心', url: '/subpkg/person/index' },\r\n         { name: '登录', url: '/subpkg/login/index' },\r\n+      ];\r\n+    }\r\n   },\r\n   methods: {\r\n     navigate(item) {\r\n       if (item.url !== this.$page.fullPath) {\r\n"
+                },
+                {
+                    "date": 1752558149468,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,8 +34,15 @@\n         { name: '运动福利', url: '/subpkg/store/index' },\r\n         { name: '个人中心', url: '/subpkg/person/index' },\r\n         { name: '登录', url: '/subpkg/login/index' },\r\n       ];\r\n+    } else {\r\n+      this.navList = [\r\n+        { name: '首页', url: '/pages/index/index' },\r\n+        { name: '运动广场', url: '/subpkg/community/index' },\r\n+        { name: '运动福利', url: '/subpkg/store/index' },\r\n+        { name: '个人中心', url: '/subpkg/person/index' },\r\n+      ];\r\n     }\r\n   },\r\n   methods: {\r\n     navigate(item) {\r\n"
+                },
+                {
+                    "date": 1752558154820,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,8 +22,9 @@\n   },\r\n   data() {\r\n     return {\r\n       navList: [],\r\n+      token: '',\r\n     };\r\n   },\r\n   onLoad() {\r\n     this.token = uni.getStorageSync('token');\r\n"
+                },
+                {
+                    "date": 1752558185258,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,8 +27,9 @@\n     };\r\n   },\r\n   onLoad() {\r\n     this.token = uni.getStorageSync('token');\r\n+    console.log(this.token, 'token');\r\n     if (!this.token) {\r\n       this.navList = [\r\n         { name: '首页', url: '/pages/index/index' },\r\n         { name: '运动广场', url: '/subpkg/community/index' },\r\n"
+                },
+                {
+                    "date": 1752558253474,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,8 +25,14 @@\n       navList: [],\r\n       token: '',\r\n     };\r\n   },\r\n+  created() {\r\n+    this.token = uni.getStorageSync('token');\r\n+    console.log(this.token, 'token');\r\n+    this.initNavList();\r\n+  },\r\n+\r\n   onLoad() {\r\n     this.token = uni.getStorageSync('token');\r\n     console.log(this.token, 'token');\r\n     if (!this.token) {\r\n"
+                },
+                {
+                    "date": 1752558268850,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,8 +52,26 @@\n       ];\r\n     }\r\n   },\r\n   methods: {\r\n+    initNavList() {\r\n+      if (!this.token) {\r\n+        this.navList = [\r\n+          { name: '首页', url: '/pages/index/index' },\r\n+          { name: '运动广场', url: '/subpkg/community/index' },\r\n+          { name: '运动福利', url: '/subpkg/store/index' },\r\n+          { name: '个人中心', url: '/subpkg/person/index' },\r\n+          { name: '登录', url: '/subpkg/login/index' },\r\n+        ];\r\n+      } else {\r\n+        this.navList = [\r\n+          { name: '首页', url: '/pages/index/index' },\r\n+          { name: '运动广场', url: '/subpkg/community/index' },\r\n+          { name: '运动福利', url: '/subpkg/store/index' },\r\n+          { name: '个人中心', url: '/subpkg/person/index' },\r\n+        ];\r\n+      }\r\n+    },\r\n     navigate(item) {\r\n       if (item.url !== this.$page.fullPath) {\r\n         uni.navigateTo({ url: item.url });\r\n       }\r\n"
+                },
+                {
+                    "date": 1752558275281,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,24 +34,8 @@\n \r\n   onLoad() {\r\n     this.token = uni.getStorageSync('token');\r\n     console.log(this.token, 'token');\r\n-    if (!this.token) {\r\n-      this.navList = [\r\n-        { name: '首页', url: '/pages/index/index' },\r\n-        { name: '运动广场', url: '/subpkg/community/index' },\r\n-        { name: '运动福利', url: '/subpkg/store/index' },\r\n-        { name: '个人中心', url: '/subpkg/person/index' },\r\n-        { name: '登录', url: '/subpkg/login/index' },\r\n-      ];\r\n-    } else {\r\n-      this.navList = [\r\n-        { name: '首页', url: '/pages/index/index' },\r\n-        { name: '运动广场', url: '/subpkg/community/index' },\r\n-        { name: '运动福利', url: '/subpkg/store/index' },\r\n-        { name: '个人中心', url: '/subpkg/person/index' },\r\n-      ];\r\n-    }\r\n   },\r\n   methods: {\r\n     initNavList() {\r\n       if (!this.token) {\r\n"
+                },
+                {
+                    "date": 1752558281164,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,13 +30,8 @@\n     this.token = uni.getStorageSync('token');\r\n     console.log(this.token, 'token');\r\n     this.initNavList();\r\n   },\r\n-\r\n-  onLoad() {\r\n-    this.token = uni.getStorageSync('token');\r\n-    console.log(this.token, 'token');\r\n-  },\r\n   methods: {\r\n     initNavList() {\r\n       if (!this.token) {\r\n         this.navList = [\r\n"
+                },
+                {
+                    "date": 1752558297872,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,9 +62,9 @@\n <style scoped>\r\n /* 样式略，保持你原有的即可 */\r\n .navbar {\r\n   display: flex;\r\n-  justify-content: end;\r\n+\r\n   padding: 20px 0;\r\n   flex-wrap: wrap;\r\n }\r\n .nav-links {\r\n"
+                },
+                {
+                    "date": 1752558345002,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,9 @@\n <template>\r\n-  <view class=\"navbar\">\r\n+  <view\r\n+    class=\"navbar\"\r\n+    :style=\"!token ? 'justify-content: end;' : 'justify-content: center;'\"\r\n+  >\r\n     <view class=\"mthealth\">麦田健康</view>\r\n     <view class=\"nav-links\">\r\n       <view\r\n         class=\"nav-link\"\r\n@@ -62,9 +65,8 @@\n <style scoped>\r\n /* 样式略，保持你原有的即可 */\r\n .navbar {\r\n   display: flex;\r\n-\r\n   padding: 20px 0;\r\n   flex-wrap: wrap;\r\n }\r\n .nav-links {\r\n"
+                },
+                {
+                    "date": 1752559251206,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,8 @@\n     };\r\n   },\r\n   created() {\r\n     this.token = uni.getStorageSync('token');\r\n-    console.log(this.token, 'token');\r\n     this.initNavList();\r\n   },\r\n   methods: {\r\n     initNavList() {\r\n"
+                },
+                {
+                    "date": 1752566498968,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n           { name: '首页', url: '/pages/index/index' },\r\n           { name: '运动广场', url: '/subpkg/community/index' },\r\n           { name: '运动福利', url: '/subpkg/store/index' },\r\n           { name: '个人中心', url: '/subpkg/person/index' },\r\n-          { name: '登录', url: '/subpkg/login/index' },\r\n+          // { name: '登录', url: '/subpkg/login/index' },\r\n         ];\r\n       } else {\r\n         this.navList = [\r\n           { name: '首页', url: '/pages/index/index' },\r\n"
+                },
+                {
+                    "date": 1752566515204,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,6 @@\n <template>\r\n-  <view\r\n-    class=\"navbar\"\r\n-    :style=\"!token ? 'justify-content: end;' : 'justify-content: center;'\"\r\n-  >\r\n+  <view class=\"navbar\">\r\n     <view class=\"mthealth\">麦田健康</view>\r\n     <view class=\"nav-links\">\r\n       <view\r\n         class=\"nav-link\"\r\n"
+                },
+                {
+                    "date": 1752566521653,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -61,8 +61,9 @@\n <style scoped>\r\n /* 样式略，保持你原有的即可 */\r\n .navbar {\r\n   display: flex;\r\n+  justify-content: center;\r\n   padding: 20px 0;\r\n   flex-wrap: wrap;\r\n }\r\n .nav-links {\r\n"
+                },
+                {
+                    "date": 1752566537362,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -95,9 +95,9 @@\n   left: 50%;\r\n   transform: translateX(-50%);\r\n   width: 70rpx;\r\n   height: 4rpx;\r\n-  background: #00c6ff;\r\n+  background: #fff;\r\n   border-radius: 2rpx;\r\n }\r\n \r\n .auth-buttons {\r\n"
+                },
+                {
+                    "date": 1752573479989,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,111 @@\n+<template>\r\n+  <view class=\"navbar\">\r\n+    <view class=\"mthealth\">麦田健康</view>\r\n+    <view class=\"nav-links\">\r\n+      <view\r\n+        class=\"nav-link\"\r\n+        v-for=\"item in navList\"\r\n+        :key=\"item.name\"\r\n+        :class=\"{ active: current === item.name }\"\r\n+        @click=\"navigate(item)\"\r\n+      >\r\n+        {{ item.name }}\r\n+      </view>\r\n+    </view>\r\n+  </view>\r\n+</template>\r\n+\r\n+<script>\r\n+export default {\r\n+  props: {\r\n+    current: String, // 当前激活项\r\n+  },\r\n+  data() {\r\n+    return {\r\n+      navList: [],\r\n+      token: '',\r\n+    };\r\n+  },\r\n+  created() {\r\n+    this.token = uni.getStorageSync('token');\r\n+    this.initNavList();\r\n+  },\r\n+  methods: {\r\n+    initNavList() {\r\n+      if (!this.token) {\r\n+        this.navList = [\r\n+          { name: '首页', url: '/pages/index/index' },\r\n+          { name: '运动广场', url: '/subpkg/community/index' },\r\n+          { name: '运动福利', url: '/subpkg/store/index' },\r\n+          // { name: '个人中心', url: '/subpkg/person/index' },\r\n+          // { name: '登录', url: '/subpkg/login/index' },\r\n+        ];\r\n+      } else {\r\n+        this.navList = [\r\n+          { name: '首页', url: '/pages/index/index' },\r\n+          { name: '运动广场', url: '/subpkg/community/index' },\r\n+          { name: '运动福利', url: '/subpkg/store/index' },\r\n+          { name: '个人中心', url: '/subpkg/person/index' },\r\n+        ];\r\n+      }\r\n+    },\r\n+    navigate(item) {\r\n+      if (item.url !== this.$page.fullPath) {\r\n+        uni.navigateTo({ url: item.url });\r\n+      }\r\n+    },\r\n+  },\r\n+};\r\n+</script>\r\n+\r\n+<style scoped>\r\n+/* 样式略，保持你原有的即可 */\r\n+.navbar {\r\n+  display: flex;\r\n+  justify-content: center;\r\n+  padding: 20px 0;\r\n+  flex-wrap: wrap;\r\n+}\r\n+.nav-links {\r\n+  display: flex;\r\n+  gap: 20rpx;\r\n+}\r\n+\r\n+.nav-link {\r\n+  position: relative;\r\n+  padding: 10rpx 0rpx;\r\n+  font-size: 28rpx;\r\n+  color: rgba(255, 255, 255, 0.8);\r\n+  transition: background 0.3s, color 0.3s;\r\n+  border-radius: 8rpx;\r\n+}\r\n+\r\n+.nav-link:hover {\r\n+  color: #fff;\r\n+}\r\n+\r\n+.nav-link.active {\r\n+  font-weight: 600;\r\n+  color: #fff;\r\n+}\r\n+.nav-link.active::after {\r\n+  content: '';\r\n+  position: absolute;\r\n+  bottom: -6rpx;\r\n+  left: 50%;\r\n+  transform: translateX(-50%);\r\n+  width: 70rpx;\r\n+  height: 4rpx;\r\n+  background: #fff;\r\n+  border-radius: 2rpx;\r\n+}\r\n+\r\n+.auth-buttons {\r\n+  display: flex;\r\n+  gap: 10px;\r\n+}\r\n+\r\n+.auth-btn {\r\n+  font-size: 14px;\r\n+}\r\n+</style>\r\n"
+                },
+                {
+                    "date": 1752573487747,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,9 @@\n         this.navList = [\r\n           { name: '首页', url: '/pages/index/index' },\r\n           { name: '运动广场', url: '/subpkg/community/index' },\r\n           { name: '运动福利', url: '/subpkg/store/index' },\r\n-          { name: '个人中心', url: '/subpkg/person/index' },\r\n+          // { name: '个人中心', url: '/subpkg/person/index' },\r\n         ];\r\n       }\r\n     },\r\n     navigate(item) {\r\n@@ -108,115 +108,4 @@\n .auth-btn {\r\n   font-size: 14px;\r\n }\r\n </style>\r\n-<template>\r\n-  <view class=\"navbar\">\r\n-    <view class=\"mthealth\">麦田健康</view>\r\n-    <view class=\"nav-links\">\r\n-      <view\r\n-        class=\"nav-link\"\r\n-        v-for=\"item in navList\"\r\n-        :key=\"item.name\"\r\n-        :class=\"{ active: current === item.name }\"\r\n-        @click=\"navigate(item)\"\r\n-      >\r\n-        {{ item.name }}\r\n-      </view>\r\n-    </view>\r\n-  </view>\r\n-</template>\r\n-\r\n-<script>\r\n-export default {\r\n-  props: {\r\n-    current: String, // 当前激活项\r\n-  },\r\n-  data() {\r\n-    return {\r\n-      navList: [],\r\n-      token: '',\r\n-    };\r\n-  },\r\n-  created() {\r\n-    this.token = uni.getStorageSync('token');\r\n-    this.initNavList();\r\n-  },\r\n-  methods: {\r\n-    initNavList() {\r\n-      if (!this.token) {\r\n-        this.navList = [\r\n-          { name: '首页', url: '/pages/index/index' },\r\n-          { name: '运动广场', url: '/subpkg/community/index' },\r\n-          { name: '运动福利', url: '/subpkg/store/index' },\r\n-          { name: '个人中心', url: '/subpkg/person/index' },\r\n-          // { name: '登录', url: '/subpkg/login/index' },\r\n-        ];\r\n-      } else {\r\n-        this.navList = [\r\n-          { name: '首页', url: '/pages/index/index' },\r\n-          { name: '运动广场', url: '/subpkg/community/index' },\r\n-          { name: '运动福利', url: '/subpkg/store/index' },\r\n-          { name: '个人中心', url: '/subpkg/person/index' },\r\n-        ];\r\n-      }\r\n-    },\r\n-    navigate(item) {\r\n-      if (item.url !== this.$page.fullPath) {\r\n-        uni.navigateTo({ url: item.url });\r\n-      }\r\n-    },\r\n-  },\r\n-};\r\n-</script>\r\n-\r\n-<style scoped>\r\n-/* 样式略，保持你原有的即可 */\r\n-.navbar {\r\n-  display: flex;\r\n-  justify-content: center;\r\n-  padding: 20px 0;\r\n-  flex-wrap: wrap;\r\n-}\r\n-.nav-links {\r\n-  display: flex;\r\n-  gap: 20rpx;\r\n-}\r\n-\r\n-.nav-link {\r\n-  position: relative;\r\n-  padding: 10rpx 0rpx;\r\n-  font-size: 28rpx;\r\n-  color: rgba(255, 255, 255, 0.8);\r\n-  transition: background 0.3s, color 0.3s;\r\n-  border-radius: 8rpx;\r\n-}\r\n-\r\n-.nav-link:hover {\r\n-  color: #fff;\r\n-}\r\n-\r\n-.nav-link.active {\r\n-  font-weight: 600;\r\n-  color: #fff;\r\n-}\r\n-.nav-link.active::after {\r\n-  content: '';\r\n-  position: absolute;\r\n-  bottom: -6rpx;\r\n-  left: 50%;\r\n-  transform: translateX(-50%);\r\n-  width: 70rpx;\r\n-  height: 4rpx;\r\n-  background: #fff;\r\n-  border-radius: 2rpx;\r\n-}\r\n-\r\n-.auth-buttons {\r\n-  display: flex;\r\n-  gap: 10px;\r\n-}\r\n-\r\n-.auth-btn {\r\n-  font-size: 14px;\r\n-}\r\n-</style>\r\n"
+                },
+                {
+                    "date": 1752573523734,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -107,5 +107,8 @@\n \r\n .auth-btn {\r\n   font-size: 14px;\r\n }\r\n+.mthealth {\r\n+  margin-right: 20px;\r\n+}\r\n </style>\r\n"
+                },
+                {
+                    "date": 1752573554486,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -98,9 +98,8 @@\n   height: 4rpx;\r\n   background: #fff;\r\n   border-radius: 2rpx;\r\n }\r\n-\r\n .auth-buttons {\r\n   display: flex;\r\n   gap: 10px;\r\n }\r\n"
+                },
+                {
+                    "date": 1752573568000,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -102,9 +102,8 @@\n .auth-buttons {\r\n   display: flex;\r\n   gap: 10px;\r\n }\r\n-\r\n .auth-btn {\r\n   font-size: 14px;\r\n }\r\n .mthealth {\r\n"
+                },
+                {
+                    "date": 1752573616034,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,17 +36,17 @@\n         this.navList = [\r\n           { name: '首页', url: '/pages/index/index' },\r\n           { name: '运动广场', url: '/subpkg/community/index' },\r\n           { name: '运动福利', url: '/subpkg/store/index' },\r\n-          // { name: '个人中心', url: '/subpkg/person/index' },\r\n+          { name: '个人中心', url: '/subpkg/person/index' },\r\n           // { name: '登录', url: '/subpkg/login/index' },\r\n         ];\r\n       } else {\r\n         this.navList = [\r\n           { name: '首页', url: '/pages/index/index' },\r\n           { name: '运动广场', url: '/subpkg/community/index' },\r\n           { name: '运动福利', url: '/subpkg/store/index' },\r\n-          // { name: '个人中心', url: '/subpkg/person/index' },\r\n+          { name: '个人中心', url: '/subpkg/person/index' },\r\n         ];\r\n       }\r\n     },\r\n     navigate(item) {\r\n"
+                },
+                {
+                    "date": 1752573638142,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,17 +36,17 @@\n         this.navList = [\r\n           { name: '首页', url: '/pages/index/index' },\r\n           { name: '运动广场', url: '/subpkg/community/index' },\r\n           { name: '运动福利', url: '/subpkg/store/index' },\r\n-          { name: '个人中心', url: '/subpkg/person/index' },\r\n-          // { name: '登录', url: '/subpkg/login/index' },\r\n+          // { name: '个人中心', url: '/subpkg/person/index' },\r\n+          { name: '登录', url: '/subpkg/login/index' },\r\n         ];\r\n       } else {\r\n         this.navList = [\r\n           { name: '首页', url: '/pages/index/index' },\r\n           { name: '运动广场', url: '/subpkg/community/index' },\r\n           { name: '运动福利', url: '/subpkg/store/index' },\r\n-          { name: '个人中心', url: '/subpkg/person/index' },\r\n+          // { name: '个人中心', url: '/subpkg/person/index' },\r\n         ];\r\n       }\r\n     },\r\n     navigate(item) {\r\n"
+                }
+            ],
+            "date": 1752549339721,
+            "name": "Commit-0",
+            "content": "<template>\r\n  <view class=\"navbar\">\r\n    <view class=\"mthealth\">麦田健康</view>\r\n    <view class=\"nav-links\">\r\n      <view\r\n        class=\"nav-link\"\r\n        v-for=\"item in navList\"\r\n        :key=\"item.name\"\r\n        :class=\"{ active: current === item.name }\"\r\n        @click=\"navigate(item)\"\r\n      >\r\n        {{ item.name }}\r\n      </view>\r\n    </view>\r\n  </view>\r\n</template>\r\n\r\n<script>\r\nexport default {\r\n  props: {\r\n    current: String, // 当前激活项\r\n  },\r\n  data() {\r\n    return {\r\n      navList: [\r\n        { name: '首页', url: '/pages/index/index' },\r\n        { name: '运动广场', url: '/pages/square/index' },\r\n        { name: '运动福利', url: '/pages/benefits/index' },\r\n        { name: '个人中心', url: '/pages/user/index' },\r\n        { name: '登录', url: '/pages/login/index' },\r\n      ],\r\n    };\r\n  },\r\n  methods: {\r\n    navigate(item) {\r\n      if (item.url !== this.$page.fullPath) {\r\n        uni.navigateTo({ url: item.url });\r\n      }\r\n    },\r\n  },\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n/* 样式略，保持你原有的即可 */\r\n.navbar {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  padding: 20rpx;\r\n}\r\n.nav-link {\r\n  padding: 10rpx 20rpx;\r\n  color: rgba(255, 255, 255, 0.6);\r\n}\r\n.nav-link.active {\r\n  color: #fff;\r\n  font-weight: bold;\r\n  position: relative;\r\n}\r\n.nav-link.active::after {\r\n  content: '';\r\n  position: absolute;\r\n  bottom: -4rpx;\r\n  left: 50%;\r\n  transform: translateX(-50%);\r\n  width: 40rpx;\r\n  height: 4rpx;\r\n  background-color: #00c6ff;\r\n  border-radius: 2rpx;\r\n}\r\n</style>\r\n"
+        }
+    ]
+}

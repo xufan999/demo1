@@ -1,0 +1,50 @@
+{
+    "sourceFile": "api/api.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 8,
+            "patches": [
+                {
+                    "date": 1745386902220,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1745386914012,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,3 @@\n-export default {\n\\ No newline at end of file\n+export default {\r\n+    111\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1745386961779,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,6 @@\n export default {\r\n-    111\r\n+     // 登录\r\n+  login(data) {\r\n+    return uni.$http.post(\"/wx/login/\", data);\r\n+  },\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1745387373901,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,9 @@\n export default {\r\n      // 登录\r\n   login(data) {\r\n-    return uni.$http.post(\"/wx/login/\", data);\r\n+    return uni.$http.post(\"/login/\", data);\r\n   },\r\n+  announcementlList(data) {\r\n+    return uni.$http.post(\"/announcement/mini_list/\", data);\r\n+  },\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1745387648771,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,9 @@\n+export default {\r\n+// 登录\r\n+  login(data) {\r\n+    return uni.$http.post(\"/login/\", data);\r\n+  },\r\n+  announcementlList(data) {\r\n+    return uni.$http.post(\"/announcement/mini_list/\", data);\r\n+  },\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1745387950145,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,9 @@\n+export default {\r\n+ // 登录\r\n+  login(data) {\r\n+    return uni.$http.post(\"/login/\", data);\r\n+  },\r\n+  announcementlList(data) {\r\n+    return uni.$http.post(\"/announcement/mini_list/\", data);\r\n+  },\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1745388102130,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,16 @@\n+export default {\r\n+ // 登录\r\n+  login(data) {\r\n+    return uni.$http.post(\"/login/\", data);\r\n+  },\r\n+  announcementlList(data) {\r\n+    return uni.$http.post(\"/announcement/mini_list/\", data);\r\n+  },\r\n+  export const communityperson = (data) => {\r\n+    return request({\r\n+      url:'/api/community_work_person/list/',\r\n+      method:'POST',\r\n+    data\r\n+  })\r\n+}\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1745388113447,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n     return uni.$http.post(\"/announcement/mini_list/\", data);\r\n   },\r\n   export const announcementlList = (data) => {\r\n     return request({\r\n-      url:'/api/community_work_person/list/',\r\n+      url:'/api/announcement/mini_list/',\r\n       method:'POST',\r\n     data\r\n   })\r\n }\r\n"
+                },
+                {
+                    "date": 1745388133436,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-\r\n+import request from '@/utils/request'\r\n  // 登录\r\n   login(data) {\r\n     return uni.$http.post(\"/login/\", data);\r\n   },\r\n"
+                }
+            ],
+            "date": 1745386902220,
+            "name": "Commit-0",
+            "content": "export default {"
+        }
+    ]
+}

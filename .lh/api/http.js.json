@@ -1,0 +1,26 @@
+{
+    "sourceFile": "api/http.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1745386939778,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1745387444445,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n // HTTP 请求设置\r\n import Request from \"luch-request\";\r\n-import common from \"../common/common\";\r\n+import common from \"\";\r\n \r\n const http = new Request();\r\n \r\n // 配置请求根路径\r\n"
+                },
+                {
+                    "date": 1745387450645,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,57 @@\n+// HTTP 请求设置\r\n+import Request from \"luch-request\";\r\n+import common from \"../common/common\";\r\n+\r\n+const http = new Request();\r\n+\r\n+// 配置请求根路径\r\n+let baseURL = common.baseURL() + \"api/\";\r\n+\r\n+// 修改全局默认配置\r\n+http.setConfig((config) => {\r\n+  config.baseURL = baseURL;\r\n+  return config;\r\n+});\r\n+\r\n+// 请求开始之前做一些事情\r\n+http.interceptors.request.use(\r\n+  (config) => {\r\n+    // 设置请求头\r\n+    config.header = {\r\n+      Authorization: uni.getStorageSync(\"token\") ?? \"\",\r\n+    };\r\n+    uni.showLoading({\r\n+      title: \"加载中\",\r\n+      mask: true,\r\n+    });\r\n+    return config;\r\n+  },\r\n+  (config) => {\r\n+    return Promise.reject(config);\r\n+  }\r\n+);\r\n+\r\n+// 请求完成之后做一些事情\r\n+http.interceptors.response.use(\r\n+  (response) => {\r\n+    uni.hideLoading();\r\n+    if (response.data.code === 1000) {\r\n+      // 未认证，跳转登录页\r\n+      uni.navigateTo({\r\n+        url:'/subpkg/login/index'\r\n+      });\r\n+    } else if (response.data.code !== 0) {\r\n+      uni.$common.showMsg(response.data.msg);\r\n+      return Promise.reject(response);\r\n+    } else {\r\n+      return response.data;\r\n+    }\r\n+    return response;\r\n+  },\r\n+  (response) => {\r\n+    uni.$common.showMsg(\"服务器错误\");\r\n+    return Promise.reject(response);\r\n+  }\r\n+);\r\n+\r\n+export default http;\r\n"
+                }
+            ],
+            "date": 1745386939778,
+            "name": "Commit-0",
+            "content": "// HTTP 请求设置\r\nimport Request from \"luch-request\";\r\nimport common from \"../common/common\";\r\n\r\nconst http = new Request();\r\n\r\n// 配置请求根路径\r\nlet baseURL = common.baseURL() + \"api/\";\r\n\r\n// 修改全局默认配置\r\nhttp.setConfig((config) => {\r\n  config.baseURL = baseURL;\r\n  return config;\r\n});\r\n\r\n// 请求开始之前做一些事情\r\nhttp.interceptors.request.use(\r\n  (config) => {\r\n    // 设置请求头\r\n    config.header = {\r\n      Authorization: uni.getStorageSync(\"token\") ?? \"\",\r\n    };\r\n    uni.showLoading({\r\n      title: \"加载中\",\r\n      mask: true,\r\n    });\r\n    return config;\r\n  },\r\n  (config) => {\r\n    return Promise.reject(config);\r\n  }\r\n);\r\n\r\n// 请求完成之后做一些事情\r\nhttp.interceptors.response.use(\r\n  (response) => {\r\n    uni.hideLoading();\r\n    if (response.data.code === 1000) {\r\n      // 未认证，跳转登录页\r\n      uni.navigateTo({\r\n        url:'/subpkg/login/index'\r\n      });\r\n    } else if (response.data.code !== 0) {\r\n      uni.$common.showMsg(response.data.msg);\r\n      return Promise.reject(response);\r\n    } else {\r\n      return response.data;\r\n    }\r\n    return response;\r\n  },\r\n  (response) => {\r\n    uni.$common.showMsg(\"服务器错误\");\r\n    return Promise.reject(response);\r\n  }\r\n);\r\n\r\nexport default http;\r\n"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "sourceFile": "package.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1775698810367,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1775698846231,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,6 @@\n     \"dayjs\": \"^1.11.13\",\n     \"luch-request\": \"^3.1.1\",\n     \"uview-ui\": \"^2.0.38\"\n   }\n-  \"scripts\": {\n-    \"dev:h5\": \"cross-env NODE_ENV=development vue-cli-service uni-serve --mode development --platform h5\",\n-    \"build:h5\": \"cross-env NODE_ENV=production vue-cli-service uni-build --mode production --platform h5\"\n-  }\n+  \n }\n"
+                }
+            ],
+            "date": 1775698810367,
+            "name": "Commit-0",
+            "content": "{\n  \"devDependencies\": {\n    \"sass\": \"^1.87.0\",\n    \"sass-loader\": \"^16.0.5\"\n  },\n  \"dependencies\": {\n    \"@mediapipe/tasks-vision\": \"^0.10.34\",\n    \"axios\": \"^1.10.0\",\n    \"dayjs\": \"^1.11.13\",\n    \"luch-request\": \"^3.1.1\",\n    \"uview-ui\": \"^2.0.38\"\n  }\n  \"scripts\": {\n    \"dev:h5\": \"cross-env NODE_ENV=development vue-cli-service uni-serve --mode development --platform h5\",\n    \"build:h5\": \"cross-env NODE_ENV=production vue-cli-service uni-build --mode production --platform h5\"\n  }\n}\n"
+        }
+    ]
+}

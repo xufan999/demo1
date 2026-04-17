@@ -1,0 +1,42 @@
+{
+    "sourceFile": "pages.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1745376939633,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1745376946634,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,6 +12,10 @@\n \t\t\"navigationBarTitleText\": \"uni-app\",\r\n \t\t\"navigationBarBackgroundColor\": \"#F8F8F8\",\r\n \t\t\"backgroundColor\": \"#F8F8F8\"\r\n \t},\r\n-\t\"uniIdRouter\": {}\r\n+\t\"uniIdRouter\": {},\r\n+\t\"subPackages\":[\r\n+\t{\r\n+\t   \"root\":\"subpkg\",\r\n+\t\t\"pages\":[]\r\n }\r\n"
+                },
+                {
+                    "date": 1745376956582,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,23 @@\n+{\r\n+\t\"pages\": [ \r\n+\t\t{\r\n+\t\t\t\"path\": \"pages/index/index\",\r\n+\t\t\t\"style\": {\r\n+\t\t\t\t\"navigationBarTitleText\": \"uni-app\"\r\n+\t\t\t}\r\n+\t\t}\r\n+\t],\r\n+\t\"globalStyle\": {\r\n+\t\t\"navigationBarTextStyle\": \"black\",\r\n+\t\t\"navigationBarTitleText\": \"uni-app\",\r\n+\t\t\"navigationBarBackgroundColor\": \"#F8F8F8\",\r\n+\t\t\"backgroundColor\": \"#F8F8F8\"\r\n+\t},\r\n+\t\"uniIdRouter\": {},\r\n+\t\"subPackages\":[\r\n+\t{\r\n+\t   \"root\":\"subpkg\",\r\n+\t\t\"pages\":[]\r\n+\t}\r\n+]\r\n+}\r\n"
+                },
+                {
+                    "date": 1745376969214,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,19 @@\n \t\"uniIdRouter\": {},\r\n \t\"subPackages\":[\r\n \t{\r\n \t   \"root\":\"subpkg\",\r\n-\t\t\"pages\":[]\r\n+\t\t\"pages\":[\r\n+\t\t\t{\r\n+\t\t\t\t\"path\": \"leave/index\",\r\n+\t\t\t\t\"style\": {\r\n+\t\t\t\t\"navigationBarTitleText\": \"\",\r\n+\t\t\t\t\"h5\": {\r\n+\t\t\t\t\"titleNView\": false,\r\n+\t\t\t\t\"navigationBarTextStyle\": \"white\"\r\n+\t\t\t\t}\r\n+\t\t\t}\r\n+\t\t    },\r\n+\t\t]\r\n \t}\r\n ]\r\n }\r\n"
+                },
+                {
+                    "date": 1745377023762,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n \t{\r\n \t   \"root\":\"subpkg\",\r\n \t\t\"pages\":[\r\n \t\t\t{\r\n-\t\t\t\t\"path\": \"leave/index\",\r\n+\t\t\t\t\"path\": \"neck/index\",\r\n \t\t\t\t\"style\": {\r\n \t\t\t\t\"navigationBarTitleText\": \"\",\r\n \t\t\t\t\"h5\": {\r\n \t\t\t\t\"titleNView\": false,\r\n"
+                },
+                {
+                    "date": 1745377068301,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,8 +26,18 @@\n \t\t\t\t\"titleNView\": false,\r\n \t\t\t\t\"navigationBarTextStyle\": \"white\"\r\n \t\t\t\t}\r\n \t\t\t}\r\n+\t\t    },\r\n+\t\t\t{\r\n+\t\t\t\t\"path\": \"neck/index\",\r\n+\t\t\t\t\"style\": {\r\n+\t\t\t\t\"navigationBarTitleText\": \"领用\",\r\n+\t\t\t\t\"h5\": {\r\n+\t\t\t\t\"titleNView\": false,\r\n+\t\t\t\t\"navigationBarTextStyle\": \"white\"\r\n+\t\t\t\t}\r\n+\t\t\t}\r\n \t\t    }\r\n \t\t]\r\n \t}\r\n ]\r\n"
+                },
+                {
+                    "date": 1745377076696,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n \t\t    },\r\n \t\t\t{\r\n \t\t\t\t\"path\": \"store/index\",\r\n \t\t\t\t\"style\": {\r\n-\t\t\t\t\"navigationBarTitleText\": \"领用\",\r\n+\t\t\t\t\"navigationBarTitleText\": \"入库\",\r\n \t\t\t\t\"h5\": {\r\n \t\t\t\t\"titleNView\": false,\r\n \t\t\t\t\"navigationBarTextStyle\": \"white\"\r\n \t\t\t\t}\r\n"
+                }
+            ],
+            "date": 1745376939632,
+            "name": "Commit-0",
+            "content": "{\r\n\t\"pages\": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages\r\n\t\t{\r\n\t\t\t\"path\": \"pages/index/index\",\r\n\t\t\t\"style\": {\r\n\t\t\t\t\"navigationBarTitleText\": \"uni-app\"\r\n\t\t\t}\r\n\t\t}\r\n\t],\r\n\t\"globalStyle\": {\r\n\t\t\"navigationBarTextStyle\": \"black\",\r\n\t\t\"navigationBarTitleText\": \"uni-app\",\r\n\t\t\"navigationBarBackgroundColor\": \"#F8F8F8\",\r\n\t\t\"backgroundColor\": \"#F8F8F8\"\r\n\t},\r\n\t\"uniIdRouter\": {}\r\n}\r\n"
+        }
+    ]
+}

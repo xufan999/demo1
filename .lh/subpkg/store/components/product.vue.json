@@ -1,0 +1,174 @@
+{
+    "sourceFile": "subpkg/store/components/product.vue",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 39,
+            "patches": [
+                {
+                    "date": 1752563285706,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752563309471,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,8 +65,11 @@\n         ],\r\n       },\r\n     };\r\n   },\r\n+  onLoad(e) {\r\n+    this.uid = e.uid;\r\n+  },\r\n   methods: {\r\n     addToCart() {\r\n       uni.showToast({ title: '已加入购物车', icon: 'success' });\r\n       //可接入购物车逻辑\r\n@@ -155,14 +158,8 @@\n   padding: 20rpx;\r\n }\r\n \r\n .btn-buy {\r\n-  /* flex: 1;\r\n-  background-color: #e93b3d;\r\n-  color: white;\r\n-  border-radius: 50rpx;\r\n-  font-size: 28rpx;\r\n-  padding: 20rpx; */\r\n   background-color: #ff8400;\r\n   flex: 1;\r\n   padding: 20rpx;\r\n   border-radius: 20rpx;\r\n"
+                },
+                {
+                    "date": 1752563314648,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,8 +62,9 @@\n           require('../../static/bgs.png'),\r\n           require('../../static/12.jpeg'),\r\n           require('../../static/ball.jpeg'),\r\n         ],\r\n+        uid: '',\r\n       },\r\n     };\r\n   },\r\n   onLoad(e) {\r\n"
+                },
+                {
+                    "date": 1752563341841,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -53,14 +53,12 @@\n         price: 999,\r\n         original_price: 9999,\r\n         desc: 'A17芯片 + 钛金属边框 + 4800万像素',\r\n         images: [\r\n-          { image: require('../../static/bgs.png') },\r\n           { image: require('../../static/12.jpeg') },\r\n           { image: require('../../static/ball.jpeg') },\r\n         ],\r\n         detailImages: [\r\n-          require('../../static/bgs.png'),\r\n           require('../../static/12.jpeg'),\r\n           require('../../static/ball.jpeg'),\r\n         ],\r\n         uid: '',\r\n"
+                },
+                {
+                    "date": 1752563367438,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -53,9 +53,9 @@\n         price: 999,\r\n         original_price: 9999,\r\n         desc: 'A17芯片 + 钛金属边框 + 4800万像素',\r\n         images: [\r\n-          { image: require('../../static/12.jpeg') },\r\n+          { image: require('../../../static/12.jpeg') },\r\n           { image: require('../../static/ball.jpeg') },\r\n         ],\r\n         detailImages: [\r\n           require('../../static/12.jpeg'),\r\n"
+                },
+                {
+                    "date": 1752563373508,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n         original_price: 9999,\r\n         desc: 'A17芯片 + 钛金属边框 + 4800万像素',\r\n         images: [\r\n           { image: require('../../../static/12.jpeg') },\r\n-          { image: require('../../static/ball.jpeg') },\r\n+          { image: require('../../../static/ball.jpeg') },\r\n         ],\r\n         detailImages: [\r\n           require('../../static/12.jpeg'),\r\n           require('../../static/ball.jpeg'),\r\n"
+                },
+                {
+                    "date": 1752563379141,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,10 +57,10 @@\n           { image: require('../../../static/12.jpeg') },\r\n           { image: require('../../../static/ball.jpeg') },\r\n         ],\r\n         detailImages: [\r\n-          require('../../static/12.jpeg'),\r\n-          require('../../static/ball.jpeg'),\r\n+          require('../../../static/12.jpeg'),\r\n+          require('../../../static/ball.jpeg'),\r\n         ],\r\n         uid: '',\r\n       },\r\n     };\r\n"
+                },
+                {
+                    "date": 1752563433794,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -77,8 +77,9 @@\n       uni.navigateTo({\r\n         url: `/pages/order/confirm?goodsId=${this.goods.id}`,\r\n       });\r\n     },\r\n+    //获取详情\r\n   },\r\n };\r\n </script>\r\n \r\n"
+                },
+                {
+                    "date": 1752563450483,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -68,12 +68,8 @@\n   onLoad(e) {\r\n     this.uid = e.uid;\r\n   },\r\n   methods: {\r\n-    addToCart() {\r\n-      uni.showToast({ title: '已加入购物车', icon: 'success' });\r\n-      //可接入购物车逻辑\r\n-    },\r\n     buyNow() {\r\n       uni.navigateTo({\r\n         url: `/pages/order/confirm?goodsId=${this.goods.id}`,\r\n       });\r\n"
+                },
+                {
+                    "date": 1752564795365,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -88,9 +88,8 @@\n .swiper {\r\n   width: 100%;\r\n   height: 600rpx;\r\n }\r\n-\r\n .swiper-img {\r\n   width: 100%;\r\n   height: 100%;\r\n   object-fit: cover;\r\n"
+                },
+                {
+                    "date": 1752564804245,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,8 @@\n       />\r\n     </view>\r\n     <!-- 操作栏 -->\r\n     <view class=\"bottom-bar\">\r\n-      <!-- <view class=\"btn-cart\" @click=\"addToCart\">加入购物车</view> -->\r\n       <view class=\"btn-buy\" @click=\"buyNow\">立即兑换</view>\r\n     </view>\r\n   </view>\r\n </template>\r\n@@ -83,9 +82,8 @@\n .goods-detail-page {\r\n   background-color: #f8f8f8;\r\n   padding-bottom: 100rpx;\r\n }\r\n-\r\n .swiper {\r\n   width: 100%;\r\n   height: 600rpx;\r\n }\r\n"
+                },
+                {
+                    "date": 1752564848859,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,8 @@\n       <swiper-item v-for=\"(img, index) in goods.images\" :key=\"index\">\r\n         <image :src=\"img.image\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n       </swiper-item>\r\n     </swiper>\r\n-\r\n     <!-- 商品信息 -->\r\n     <view class=\"info-box\">\r\n       <view class=\"goods-title\">{{ goods.title }}</view>\r\n       <view class=\"goods-price\">\r\n@@ -34,9 +33,8 @@\n         mode=\"widthFix\"\r\n         class=\"detail-img\"\r\n       />\r\n     </view>\r\n-    <!-- 操作栏 -->\r\n     <view class=\"bottom-bar\">\r\n       <view class=\"btn-buy\" @click=\"buyNow\">立即兑换</view>\r\n     </view>\r\n   </view>\r\n"
+                },
+                {
+                    "date": 1752565366660,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -71,8 +71,9 @@\n         url: `/pages/order/confirm?goodsId=${this.goods.id}`,\r\n       });\r\n     },\r\n     //获取详情\r\n+    getProductDetail()P\r\n   },\r\n };\r\n </script>\r\n \r\n"
+                },
+                {
+                    "date": 1752565372504,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -71,9 +71,9 @@\n         url: `/pages/order/confirm?goodsId=${this.goods.id}`,\r\n       });\r\n     },\r\n     //获取详情\r\n-    getProductDetail()P\r\n+    async getProductDetail() {},\r\n   },\r\n };\r\n </script>\r\n \r\n"
+                },
+                {
+                    "date": 1752565403286,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,8 +40,9 @@\n   </view>\r\n </template>\r\n \r\n <script>\r\n+import { goodsList, goodsDetail } from '@/api/api.js';\r\n export default {\r\n   data() {\r\n     return {\r\n       goods: {\r\n"
+                },
+                {
+                    "date": 1752565425964,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -72,9 +72,11 @@\n         url: `/pages/order/confirm?goodsId=${this.goods.id}`,\r\n       });\r\n     },\r\n     //获取详情\r\n-    async getProductDetail() {},\r\n+    async getProductDetail() {\r\n+      const res = await goodsDetail({ uid: this.uid });\r\n+    },\r\n   },\r\n };\r\n </script>\r\n \r\n"
+                },
+                {
+                    "date": 1752565442682,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n   </view>\r\n </template>\r\n \r\n <script>\r\n-import { goodsList, goodsDetail } from '@/api/api.js';\r\n+import { goodsDetail } from '@/api/api.js';\r\n export default {\r\n   data() {\r\n     return {\r\n       goods: {\r\n@@ -59,8 +59,9 @@\n           require('../../../static/12.jpeg'),\r\n           require('../../../static/ball.jpeg'),\r\n         ],\r\n         uid: '',\r\n+        product:{}\r\n       },\r\n     };\r\n   },\r\n   onLoad(e) {\r\n@@ -74,8 +75,11 @@\n     },\r\n     //获取详情\r\n     async getProductDetail() {\r\n       const res = await goodsDetail({ uid: this.uid });\r\n+      if(res.data) {\r\n+        this.\r\n+      }\r\n     },\r\n   },\r\n };\r\n </script>\r\n"
+                },
+                {
+                    "date": 1752565449662,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -59,9 +59,9 @@\n           require('../../../static/12.jpeg'),\r\n           require('../../../static/ball.jpeg'),\r\n         ],\r\n         uid: '',\r\n-        product:{}\r\n+        product: {},\r\n       },\r\n     };\r\n   },\r\n   onLoad(e) {\r\n@@ -75,10 +75,10 @@\n     },\r\n     //获取详情\r\n     async getProductDetail() {\r\n       const res = await goodsDetail({ uid: this.uid });\r\n-      if(res.data) {\r\n-        this.\r\n+      if (res.data) {\r\n+        this.product = res.data;\r\n       }\r\n     },\r\n   },\r\n };\r\n"
+                },
+                {
+                    "date": 1752565462687,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -66,8 +66,11 @@\n   },\r\n   onLoad(e) {\r\n     this.uid = e.uid;\r\n   },\r\n+  onShow() {\r\n+    this.getProductDetail();\r\n+  },\r\n   methods: {\r\n     buyNow() {\r\n       uni.navigateTo({\r\n         url: `/pages/order/confirm?goodsId=${this.goods.id}`,\r\n"
+                },
+                {
+                    "date": 1752565506646,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,12 +50,9 @@\n         title: 'Apple iPhone 15 Pro 256G',\r\n         price: 999,\r\n         original_price: 9999,\r\n         desc: 'A17芯片 + 钛金属边框 + 4800万像素',\r\n-        images: [\r\n-          { image: require('../../../static/12.jpeg') },\r\n-          { image: require('../../../static/ball.jpeg') },\r\n-        ],\r\n+\r\n         detailImages: [\r\n           require('../../../static/12.jpeg'),\r\n           require('../../../static/ball.jpeg'),\r\n         ],\r\n"
+                },
+                {
+                    "date": 1752565528029,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,17 @@\n <template>\r\n   <view class=\"goods-detail-page\">\r\n     <!-- 商品轮播图 -->\r\n-    <swiper\r\n+    <!-- <swiper\r\n       :indicator-dots=\"true\"\r\n       autoplay\r\n       circular\r\n       :interval=\"3000\"\r\n       class=\"swiper\"\r\n     >\r\n-      <swiper-item v-for=\"(img, index) in goods.images\" :key=\"index\">\r\n+      <swiper-item v-for=\"(img, index) in goods.images\" :key=\"index\"> -->\r\n         <image :src=\"img.image\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n-      </swiper-item>\r\n+      <!-- </swiper-item> -->\r\n     </swiper>\r\n     <!-- 商品信息 -->\r\n     <view class=\"info-box\">\r\n       <view class=\"goods-title\">{{ goods.title }}</view>\r\n@@ -50,9 +50,8 @@\n         title: 'Apple iPhone 15 Pro 256G',\r\n         price: 999,\r\n         original_price: 9999,\r\n         desc: 'A17芯片 + 钛金属边框 + 4800万像素',\r\n-\r\n         detailImages: [\r\n           require('../../../static/12.jpeg'),\r\n           require('../../../static/ball.jpeg'),\r\n         ],\r\n"
+                },
+                {
+                    "date": 1752565533078,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,11 +8,11 @@\n       :interval=\"3000\"\r\n       class=\"swiper\"\r\n     >\r\n       <swiper-item v-for=\"(img, index) in goods.images\" :key=\"index\"> -->\r\n-        <image :src=\"img.image\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n-      <!-- </swiper-item> -->\r\n-    </swiper>\r\n+    <image :src=\"img.image\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n+    <!-- </swiper-item>\r\n+    </swiper> -->\r\n     <!-- 商品信息 -->\r\n     <view class=\"info-box\">\r\n       <view class=\"goods-title\">{{ goods.title }}</view>\r\n       <view class=\"goods-price\">\r\n"
+                },
+                {
+                    "date": 1752565540196,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n       :interval=\"3000\"\r\n       class=\"swiper\"\r\n     >\r\n       <swiper-item v-for=\"(img, index) in goods.images\" :key=\"index\"> -->\r\n-    <image :src=\"img.image\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n+    <image :src=\"product.image\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n     <!-- </swiper-item>\r\n     </swiper> -->\r\n     <!-- 商品信息 -->\r\n     <view class=\"info-box\">\r\n"
+                },
+                {
+                    "date": 1752565562363,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n       :interval=\"3000\"\r\n       class=\"swiper\"\r\n     >\r\n       <swiper-item v-for=\"(img, index) in goods.images\" :key=\"index\"> -->\r\n-    <image :src=\"product.image\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n+    <image :src=\"product.cover\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n     <!-- </swiper-item>\r\n     </swiper> -->\r\n     <!-- 商品信息 -->\r\n     <view class=\"info-box\">\r\n"
+                },
+                {
+                    "date": 1752565579506,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,9 +55,8 @@\n           require('../../../static/12.jpeg'),\r\n           require('../../../static/ball.jpeg'),\r\n         ],\r\n         uid: '',\r\n-        product: {},\r\n       },\r\n     };\r\n   },\r\n   onLoad(e) {\r\n"
+                },
+                {
+                    "date": 1752565613050,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,15 @@\n <template>\r\n   <view class=\"goods-detail-page\">\r\n     <!-- 商品轮播图 -->\r\n-    <!-- <swiper\r\n+    <swiper\r\n       :indicator-dots=\"true\"\r\n       autoplay\r\n       circular\r\n       :interval=\"3000\"\r\n       class=\"swiper\"\r\n     >\r\n-      <swiper-item v-for=\"(img, index) in goods.images\" :key=\"index\"> -->\r\n+      <swiper-item v-for=\"(img, index) in goods.images\" :key=\"index\">\r\n     <image :src=\"product.cover\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n     <!-- </swiper-item>\r\n     </swiper> -->\r\n     <!-- 商品信息 -->\r\n@@ -56,8 +56,9 @@\n           require('../../../static/ball.jpeg'),\r\n         ],\r\n         uid: '',\r\n       },\r\n+      product: {},\r\n     };\r\n   },\r\n   onLoad(e) {\r\n     this.uid = e.uid;\r\n"
+                },
+                {
+                    "date": 1752565622600,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,11 +8,11 @@\n       :interval=\"3000\"\r\n       class=\"swiper\"\r\n     >\r\n       <swiper-item v-for=\"(img, index) in goods.images\" :key=\"index\">\r\n-    <image :src=\"product.cover\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n-    <!-- </swiper-item>\r\n-    </swiper> -->\r\n+        <image :src=\"product.cover\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n+      </swiper-item>\r\n+    </swiper>\r\n     <!-- 商品信息 -->\r\n     <view class=\"info-box\">\r\n       <view class=\"goods-title\">{{ goods.title }}</view>\r\n       <view class=\"goods-price\">\r\n"
+                },
+                {
+                    "date": 1752565769818,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <template>\r\n   <view class=\"goods-detail-page\">\r\n     <!-- 商品轮播图 -->\r\n-    <swiper\r\n+    <!-- <swiper\r\n       :indicator-dots=\"true\"\r\n       autoplay\r\n       circular\r\n       :interval=\"3000\"\r\n@@ -10,9 +10,9 @@\n     >\r\n       <swiper-item v-for=\"(img, index) in goods.images\" :key=\"index\">\r\n         <image :src=\"product.cover\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n       </swiper-item>\r\n-    </swiper>\r\n+    </swiper> -->\r\n     <!-- 商品信息 -->\r\n     <view class=\"info-box\">\r\n       <view class=\"goods-title\">{{ goods.title }}</view>\r\n       <view class=\"goods-price\">\r\n"
+                },
+                {
+                    "date": 1752565781620,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n       <swiper-item v-for=\"(img, index) in goods.images\" :key=\"index\">\r\n         <image :src=\"product.cover\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n       </swiper-item>\r\n     </swiper> -->\r\n+    <view class=\"swiper\"></view>\r\n     <!-- 商品信息 -->\r\n     <view class=\"info-box\">\r\n       <view class=\"goods-title\">{{ goods.title }}</view>\r\n       <view class=\"goods-price\">\r\n"
+                },
+                {
+                    "date": 1752565798827,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,11 @@\n       <swiper-item v-for=\"(img, index) in goods.images\" :key=\"index\">\r\n         <image :src=\"product.cover\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n       </swiper-item>\r\n     </swiper> -->\r\n-    <view class=\"swiper\"></view>\r\n+    <view class=\"swiper\">\r\n+      <image src=\"/static/uni.png\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n+    </view>\r\n     <!-- 商品信息 -->\r\n     <view class=\"info-box\">\r\n       <view class=\"goods-title\">{{ goods.title }}</view>\r\n       <view class=\"goods-price\">\r\n"
+                },
+                {
+                    "date": 1752565813542,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n         <image :src=\"product.cover\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n       </swiper-item>\r\n     </swiper> -->\r\n     <view class=\"swiper\">\r\n-      <image src=\"/static/uni.png\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n+      <image src=\"/static/12.jpeg\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n     </view>\r\n     <!-- 商品信息 -->\r\n     <view class=\"info-box\">\r\n       <view class=\"goods-title\">{{ goods.title }}</view>\r\n"
+                },
+                {
+                    "date": 1752565827571,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n         <image :src=\"product.cover\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n       </swiper-item>\r\n     </swiper> -->\r\n     <view class=\"swiper\">\r\n-      <image src=\"/static/12.jpeg\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n+      <image :src=\"product.cover\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n     </view>\r\n     <!-- 商品信息 -->\r\n     <view class=\"info-box\">\r\n       <view class=\"goods-title\">{{ goods.title }}</view>\r\n"
+                },
+                {
+                    "date": 1752565834698,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n       <image :src=\"product.cover\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n     </view>\r\n     <!-- 商品信息 -->\r\n     <view class=\"info-box\">\r\n-      <view class=\"goods-title\">{{ goods.title }}</view>\r\n+      <view class=\"goods-title\">{{ product.title }}</view>\r\n       <view class=\"goods-price\">\r\n         <text class=\"price\"\r\n           >{{ goods.price }}\r\n           <text style=\"font-size: 12px; margin-left: 5rpx\">能量</text>\r\n"
+                },
+                {
+                    "date": 1752565840293,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n       <image :src=\"product.cover\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n     </view>\r\n     <!-- 商品信息 -->\r\n     <view class=\"info-box\">\r\n-      <view class=\"goods-title\">{{ product.title }}</view>\r\n+      <view class=\"goods-title\">{{ product.name }}</view>\r\n       <view class=\"goods-price\">\r\n         <text class=\"price\"\r\n           >{{ goods.price }}\r\n           <text style=\"font-size: 12px; margin-left: 5rpx\">能量</text>\r\n"
+                },
+                {
+                    "date": 1752565958614,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n     <view class=\"info-box\">\r\n       <view class=\"goods-title\">{{ product.name }}</view>\r\n       <view class=\"goods-price\">\r\n         <text class=\"price\"\r\n-          >{{ goods.price }}\r\n+          >{{ goods.cost }}\r\n           <text style=\"font-size: 12px; margin-left: 5rpx\">能量</text>\r\n         </text>\r\n         <text class=\"origin-price\">￥{{ goods.original_price }}</text>\r\n       </view>\r\n"
+                },
+                {
+                    "date": 1752565966710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n         <text class=\"price\"\r\n           >{{ goods.cost }}\r\n           <text style=\"font-size: 12px; margin-left: 5rpx\">能量</text>\r\n         </text>\r\n-        <text class=\"origin-price\">￥{{ goods.original_price }}</text>\r\n+        <text class=\"origin-price\">￥{{ goods.price }}</text>\r\n       </view>\r\n       <view class=\"goods-desc\">{{ goods.desc }}</view>\r\n     </view>\r\n     <view class=\"goods-detail-images\">\r\n"
+                },
+                {
+                    "date": 1752566000178,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,14 +19,16 @@\n     <view class=\"info-box\">\r\n       <view class=\"goods-title\">{{ product.name }}</view>\r\n       <view class=\"goods-price\">\r\n         <text class=\"price\"\r\n-          >{{ goods.cost }}\r\n+          >{{ product.cost }}\r\n           <text style=\"font-size: 12px; margin-left: 5rpx\">能量</text>\r\n         </text>\r\n-        <text class=\"origin-price\">￥{{ goods.price }}</text>\r\n+        <text class=\"origin-price\">￥{{ product.price }}</text>\r\n       </view>\r\n       <view class=\"goods-desc\">{{ goods.desc }}</view>\r\n+\r\n+      <view class=\"goods-desc\">{{ goods.desc }}</view>\r\n     </view>\r\n     <view class=\"goods-detail-images\">\r\n       <view class=\"section-title\">商品详情</view>\r\n       <image\r\n"
+                },
+                {
+                    "date": 1752566008335,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,11 +24,10 @@\n           <text style=\"font-size: 12px; margin-left: 5rpx\">能量</text>\r\n         </text>\r\n         <text class=\"origin-price\">￥{{ product.price }}</text>\r\n       </view>\r\n+      <view class=\"goods-desc\">剩余{{ goods.desc }}</view>\r\n       <view class=\"goods-desc\">{{ goods.desc }}</view>\r\n-\r\n-      <view class=\"goods-desc\">{{ goods.desc }}</view>\r\n     </view>\r\n     <view class=\"goods-detail-images\">\r\n       <view class=\"section-title\">商品详情</view>\r\n       <image\r\n"
+                },
+                {
+                    "date": 1752566016547,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n           <text style=\"font-size: 12px; margin-left: 5rpx\">能量</text>\r\n         </text>\r\n         <text class=\"origin-price\">￥{{ product.price }}</text>\r\n       </view>\r\n-      <view class=\"goods-desc\">剩余{{ goods.desc }}</view>\r\n+      <view class=\"goods-desc\">剩余{{ product.stock }}</view>\r\n       <view class=\"goods-desc\">{{ goods.desc }}</view>\r\n     </view>\r\n     <view class=\"goods-detail-images\">\r\n       <view class=\"section-title\">商品详情</view>\r\n"
+                },
+                {
+                    "date": 1752566024225,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n           <text style=\"font-size: 12px; margin-left: 5rpx\">能量</text>\r\n         </text>\r\n         <text class=\"origin-price\">￥{{ product.price }}</text>\r\n       </view>\r\n-      <view class=\"goods-desc\">剩余{{ product.stock }}个</view>\r\n+      <view class=\"goods-desc\">剩{{ product.stock }}个</view>\r\n       <view class=\"goods-desc\">{{ goods.desc }}</view>\r\n     </view>\r\n     <view class=\"goods-detail-images\">\r\n       <view class=\"section-title\">商品详情</view>\r\n"
+                }
+            ],
+            "date": 1752563285706,
+            "name": "Commit-0",
+            "content": "<template>\r\n  <view class=\"goods-detail-page\">\r\n    <!-- 商品轮播图 -->\r\n    <swiper\r\n      :indicator-dots=\"true\"\r\n      autoplay\r\n      circular\r\n      :interval=\"3000\"\r\n      class=\"swiper\"\r\n    >\r\n      <swiper-item v-for=\"(img, index) in goods.images\" :key=\"index\">\r\n        <image :src=\"img.image\" class=\"swiper-img\" mode=\"aspectFill\" />\r\n      </swiper-item>\r\n    </swiper>\r\n\r\n    <!-- 商品信息 -->\r\n    <view class=\"info-box\">\r\n      <view class=\"goods-title\">{{ goods.title }}</view>\r\n      <view class=\"goods-price\">\r\n        <text class=\"price\"\r\n          >{{ goods.price }}\r\n          <text style=\"font-size: 12px; margin-left: 5rpx\">能量</text>\r\n        </text>\r\n        <text class=\"origin-price\">￥{{ goods.original_price }}</text>\r\n      </view>\r\n      <view class=\"goods-desc\">{{ goods.desc }}</view>\r\n    </view>\r\n    <view class=\"goods-detail-images\">\r\n      <view class=\"section-title\">商品详情</view>\r\n      <image\r\n        v-for=\"(img, index) in goods.detailImages\"\r\n        :key=\"index\"\r\n        :src=\"img\"\r\n        mode=\"widthFix\"\r\n        class=\"detail-img\"\r\n      />\r\n    </view>\r\n    <!-- 操作栏 -->\r\n    <view class=\"bottom-bar\">\r\n      <!-- <view class=\"btn-cart\" @click=\"addToCart\">加入购物车</view> -->\r\n      <view class=\"btn-buy\" @click=\"buyNow\">立即兑换</view>\r\n    </view>\r\n  </view>\r\n</template>\r\n\r\n<script>\r\nexport default {\r\n  data() {\r\n    return {\r\n      goods: {\r\n        id: 1,\r\n        title: 'Apple iPhone 15 Pro 256G',\r\n        price: 999,\r\n        original_price: 9999,\r\n        desc: 'A17芯片 + 钛金属边框 + 4800万像素',\r\n        images: [\r\n          { image: require('../../static/bgs.png') },\r\n          { image: require('../../static/12.jpeg') },\r\n          { image: require('../../static/ball.jpeg') },\r\n        ],\r\n        detailImages: [\r\n          require('../../static/bgs.png'),\r\n          require('../../static/12.jpeg'),\r\n          require('../../static/ball.jpeg'),\r\n        ],\r\n      },\r\n    };\r\n  },\r\n  methods: {\r\n    addToCart() {\r\n      uni.showToast({ title: '已加入购物车', icon: 'success' });\r\n      //可接入购物车逻辑\r\n    },\r\n    buyNow() {\r\n      uni.navigateTo({\r\n        url: `/pages/order/confirm?goodsId=${this.goods.id}`,\r\n      });\r\n    },\r\n  },\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.goods-detail-page {\r\n  background-color: #f8f8f8;\r\n  padding-bottom: 100rpx;\r\n}\r\n\r\n.swiper {\r\n  width: 100%;\r\n  height: 600rpx;\r\n}\r\n\r\n.swiper-img {\r\n  width: 100%;\r\n  height: 100%;\r\n  object-fit: cover;\r\n}\r\n\r\n.info-box {\r\n  padding: 30rpx;\r\n  background-color: #fff;\r\n}\r\n\r\n.goods-title {\r\n  font-size: 32rpx;\r\n  font-weight: bold;\r\n  margin-bottom: 20rpx;\r\n}\r\n\r\n.goods-price {\r\n  font-size: 28rpx;\r\n  color: #e93b3d;\r\n  margin-bottom: 20rpx;\r\n}\r\n\r\n.price {\r\n  font-size: 36rpx;\r\n  font-weight: bold;\r\n}\r\n\r\n.origin-price {\r\n  text-decoration: line-through;\r\n  color: #999;\r\n  font-size: 26rpx;\r\n  margin-left: 20rpx;\r\n}\r\n\r\n.goods-desc {\r\n  color: #666;\r\n  font-size: 26rpx;\r\n  line-height: 1.6;\r\n}\r\n\r\n/* 底部操作栏 */\r\n.bottom-bar {\r\n  position: fixed;\r\n  bottom: 0;\r\n  left: 0;\r\n  right: 0;\r\n  display: flex;\r\n  background-color: #fff;\r\n  border-top: 1rpx solid #eee;\r\n  padding: 20rpx;\r\n  justify-content: space-between;\r\n}\r\n\r\n.btn-cart {\r\n  flex: 1;\r\n  margin-right: 20rpx;\r\n  background-color: #ff9500;\r\n  color: white;\r\n  border-radius: 50rpx;\r\n  font-size: 28rpx;\r\n  padding: 20rpx;\r\n}\r\n\r\n.btn-buy {\r\n  /* flex: 1;\r\n  background-color: #e93b3d;\r\n  color: white;\r\n  border-radius: 50rpx;\r\n  font-size: 28rpx;\r\n  padding: 20rpx; */\r\n  background-color: #ff8400;\r\n  flex: 1;\r\n  padding: 20rpx;\r\n  border-radius: 20rpx;\r\n  color: white;\r\n  text-align: center;\r\n}\r\n.goods-detail-images {\r\n  padding: 30rpx;\r\n  background-color: #fff;\r\n  margin-top: 20rpx;\r\n}\r\n\r\n.section-title {\r\n  font-size: 28rpx;\r\n  font-weight: bold;\r\n  margin-bottom: 20rpx;\r\n  color: #333;\r\n}\r\n\r\n.detail-img {\r\n  width: 100%;\r\n  margin-bottom: 20rpx;\r\n  border-radius: 10rpx;\r\n}\r\n</style>\r\n"
+        }
+    ]
+}

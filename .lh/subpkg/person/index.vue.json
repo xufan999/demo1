@@ -1,0 +1,142 @@
+{
+    "sourceFile": "subpkg/person/index.vue",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 31,
+            "patches": [
+                {
+                    "date": 1752549627632,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752549650920,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,17 @@\n+<template>\r\n+  <div></div>\r\n+</template>\r\n+\r\n+<script>\r\n+export default {\r\n+  data() {\r\n+    return {};\r\n+  },\r\n+\r\n+  created() {},\r\n+\r\n+  methods: {},\r\n+};\r\n+</script>\r\n+\r\n+<style scoped></style>\r\n"
+                },
+                {
+                    "date": 1752550107404,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,71 @@\n <template>\r\n-  <div></div>\r\n+  <div class=\"container\">\r\n+    <navbar current=\"运动广场\"></navbar>\r\n+  </div>\r\n </template>\r\n \r\n <script>\r\n+import navbar from '../../components/navbar';\r\n export default {\r\n   data() {\r\n     return {};\r\n   },\r\n-\r\n+  components: {\r\n+    navbar,\r\n+  },\r\n   created() {},\r\n \r\n   methods: {},\r\n };\r\n </script>\r\n \r\n-<style scoped></style>\r\n+<style scoped lang=\"scss\">\r\n+* {\r\n+  margin: 0;\r\n+  padding: 0;\r\n+  box-sizing: border-box;\r\n+  font-family: serif;\r\n+}\r\n+\r\n+.container {\r\n+  max-width: 480px;\r\n+  margin: 0 auto;\r\n+  padding: 0 15px;\r\n+  // background: linear-gradient(135deg, #ff8400, #ff3c00, #2c003e);\r\n+  background: linear-gradient(135deg, #ffd580, #ff8400, #cc5500);\r\n+  // background: linear-gradient(135deg, #ff8400, #00c9a7);\r\n+  color: #fff;\r\n+  min-height: 100vh;\r\n+  padding-bottom: 30px;\r\n+}\r\n+@media screen and (max-width: 480px) {\r\n+  .navbar {\r\n+    // flex-direction: column;\r\n+    align-items: center;\r\n+    gap: 15px;\r\n+  }\r\n+\r\n+  .hero-title {\r\n+    font-size: 24px;\r\n+  }\r\n+\r\n+  .hero-desc {\r\n+    font-size: 14px;\r\n+  }\r\n+\r\n+  .download-buttons {\r\n+    flex-direction: column;\r\n+    align-items: center;\r\n+    gap: 12px;\r\n+  }\r\n+\r\n+  .download-btn {\r\n+    width: 220px;\r\n+    justify-content: center;\r\n+  }\r\n+\r\n+  .big-value {\r\n+    font-size: 40px;\r\n+  }\r\n+}\r\n+</style>\r\n"
+                },
+                {
+                    "date": 1752550121854,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <template>\r\n   <div class=\"container\">\r\n-    <navbar current=\"运动广场\"></navbar>\r\n+    <navbar current=\"个人中心\"></navbar>\r\n   </div>\r\n </template>\r\n \r\n <script>\r\n"
+                },
+                {
+                    "date": 1752556046438,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,45 @@\n <template>\r\n   <div class=\"container\">\r\n     <navbar current=\"个人中心\"></navbar>\r\n+    <view class=\"loginWay\">\r\n+      <uni-forms ref=\"baseForm\" :modelValue=\"baseFormData\" :rules=\"rules\">\r\n+        <uni-forms-item label=\"用户名\" required name=\"username\">\r\n+          <uni-easyinput\r\n+            prefixIcon=\"person\"\r\n+            v-model=\"baseFormData.username\"\r\n+            placeholder=\"请输入用户名\"\r\n+            :clearable=\"false\"\r\n+          />\r\n+        </uni-forms-item>\r\n+        <uni-forms-item label=\"密码\" required name=\"password\">\r\n+          <uni-easyinput\r\n+            prefixIcon=\"locked\"\r\n+            v-model=\"baseFormData.password\"\r\n+            placeholder=\"请输入密码\"\r\n+            type=\"password\"\r\n+            :clearable=\"false\"\r\n+          />\r\n+        </uni-forms-item>\r\n+        <uni-forms-item label=\"验证码\" required name=\"code\">\r\n+          <div style=\"display: flex; align-items: center\">\r\n+            <uni-easyinput\r\n+              prefixIcon=\"email\"\r\n+              v-model=\"baseFormData.code\"\r\n+              placeholder=\"请输入验证码\"\r\n+              style=\"width: 300rpx\"\r\n+              :clearable=\"false\"\r\n+            />\r\n+            <image\r\n+              :src=\"`data:image/png;base64,${capic}`\"\r\n+              style=\"width: 150rpx; height: 100rpx\"\r\n+              @click.native=\"capture\"\r\n+            ></image>\r\n+          </div>\r\n+        </uni-forms-item>\r\n+      </uni-forms>\r\n+      <view class=\"btns1\" @click=\"goLogin('baseForm')\">登录</view>\r\n+    </view>\r\n   </div>\r\n </template>\r\n \r\n <script>\r\n@@ -30,18 +68,15 @@\n .container {\r\n   max-width: 480px;\r\n   margin: 0 auto;\r\n   padding: 0 15px;\r\n-  // background: linear-gradient(135deg, #ff8400, #ff3c00, #2c003e);\r\n   background: linear-gradient(135deg, #ffd580, #ff8400, #cc5500);\r\n-  // background: linear-gradient(135deg, #ff8400, #00c9a7);\r\n   color: #fff;\r\n   min-height: 100vh;\r\n   padding-bottom: 30px;\r\n }\r\n @media screen and (max-width: 480px) {\r\n   .navbar {\r\n-    // flex-direction: column;\r\n     align-items: center;\r\n     gap: 15px;\r\n   }\r\n \r\n"
+                },
+                {
+                    "date": 1752556060834,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,9 +45,44 @@\n <script>\r\n import navbar from '../../components/navbar';\r\n export default {\r\n   data() {\r\n-    return {};\r\n+    return {\r\n+       isPhone: false,\r\n+      token: '',\r\n+      baseFormData: {\r\n+        username: '',\r\n+        password: '',\r\n+        code: '',\r\n+      },\r\n+      form_id: '',\r\n+      capic: '',\r\n+      rules: {\r\n+        username: {\r\n+          rules: [\r\n+            {\r\n+              required: true,\r\n+              errorMessage: '请输入用户名',\r\n+            },\r\n+          ],\r\n+        },\r\n+        password: {\r\n+          rules: [\r\n+            {\r\n+              required: true,\r\n+              errorMessage: '请输入密码',\r\n+            },\r\n+          ],\r\n+        },\r\n+        code: {\r\n+          rules: [\r\n+            {\r\n+              required: true,\r\n+              errorMessage: '请输入验证码',\r\n+            },\r\n+          ],\r\n+        },\r\n+    };\r\n   },\r\n   components: {\r\n     navbar,\r\n   },\r\n"
+                },
+                {
+                    "date": 1752556066510,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,9 +46,9 @@\n import navbar from '../../components/navbar';\r\n export default {\r\n   data() {\r\n     return {\r\n-       isPhone: false,\r\n+      isPhone: false,\r\n       token: '',\r\n       baseFormData: {\r\n         username: '',\r\n         password: '',\r\n@@ -80,8 +80,9 @@\n               errorMessage: '请输入验证码',\r\n             },\r\n           ],\r\n         },\r\n+      },\r\n     };\r\n   },\r\n   components: {\r\n     navbar,\r\n"
+                },
+                {
+                    "date": 1752556083048,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -86,11 +86,61 @@\n   },\r\n   components: {\r\n     navbar,\r\n   },\r\n-  created() {},\r\n-\r\n-  methods: {},\r\n+  onShow() {\r\n+    this.capture();\r\n+  },\r\n+  methods: {\r\n+    async capture() {\r\n+      this.form_id = new Date().getTime();\r\n+      const res = await captcha({\r\n+        form_id: this.form_id,\r\n+      });\r\n+      this.capic = res.data.img;\r\n+    },\r\n+    //点击登录\r\n+    async goLogin(ref) {\r\n+      this.$refs[ref].validate().then(async () => {\r\n+        try {\r\n+          const data = {\r\n+            username: this.baseFormData.username,\r\n+            password: this.baseFormData.password,\r\n+            code: this.baseFormData.code,\r\n+            form_id: this.form_id,\r\n+          };\r\n+          const res = await login(data);\r\n+          if (res.code === 0) {\r\n+            uni.showToast({\r\n+              icon: 'none',\r\n+              title: '登录成功',\r\n+              duration: 1000,\r\n+            });\r\n+            setTimeout(() => {\r\n+              uni.reLaunch({\r\n+                url: '/pages/index/index',\r\n+              });\r\n+            }, 500);\r\n+            uni.setStorageSync('token', res.data.token);\r\n+            uni.setStorageSync('infos', res.data);\r\n+          } else {\r\n+            uni.showToast({\r\n+              icon: 'none',\r\n+              title: res.msg,\r\n+            });\r\n+            this.capture();\r\n+          }\r\n+        } catch (err) {\r\n+          uni.showToast({\r\n+            icon: 'none',\r\n+            title: err,\r\n+          });\r\n+        } //盘点：装备分类、领用数量、归还数量、时间、核减\r\n+        //入库：点击出现扫描，扫描完出现id，随后出现填的表单\r\n+        //领用：例如我：名下领用了有哪些明细，如：打火机x1，香烟x1\r\n+      });\r\n+    },\r\n+  },\r\n };\r\n </script>\r\n \r\n <style scoped lang=\"scss\">\r\n"
+                },
+                {
+                    "date": 1752556094117,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -91,13 +91,13 @@\n     this.capture();\r\n   },\r\n   methods: {\r\n     async capture() {\r\n-      this.form_id = new Date().getTime();\r\n-      const res = await captcha({\r\n-        form_id: this.form_id,\r\n-      });\r\n-      this.capic = res.data.img;\r\n+      // this.form_id = new Date().getTime();\r\n+      // const res = await captcha({\r\n+      //   form_id: this.form_id,\r\n+      // });\r\n+      // this.capic = res.data.img;\r\n     },\r\n     //点击登录\r\n     async goLogin(ref) {\r\n       this.$refs[ref].validate().then(async () => {\r\n@@ -133,11 +133,9 @@\n           uni.showToast({\r\n             icon: 'none',\r\n             title: err,\r\n           });\r\n-        } //盘点：装备分类、领用数量、归还数量、时间、核减\r\n-        //入库：点击出现扫描，扫描完出现id，随后出现填的表单\r\n-        //领用：例如我：名下领用了有哪些明细，如：打火机x1，香烟x1\r\n+        }\r\n       });\r\n     },\r\n   },\r\n };\r\n"
+                },
+                {
+                    "date": 1752556108373,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -186,5 +186,39 @@\n   .big-value {\r\n     font-size: 40px;\r\n   }\r\n }\r\n+.loginWay {\r\n+  letter-spacing: 3rpx;\r\n+  font-size: 28rpx;\r\n+  margin-top: 100rpx;\r\n+  .sign {\r\n+    width: 90%;\r\n+    height: 50px;\r\n+    background-color: #f3f4f6;\r\n+    border-radius: 20rpx;\r\n+    text-align: center;\r\n+    line-height: 50px;\r\n+    margin: 15px auto 15px;\r\n+    font-size: 30rpx;\r\n+    color: #ff8400;\r\n+  }\r\n+  .visitor {\r\n+    text-align: center;\r\n+    line-height: 50px;\r\n+    margin: 15px auto 15px;\r\n+    font-size: 30rpx;\r\n+    color: #ff8400;\r\n+  }\r\n+  .phone {\r\n+    width: 90%;\r\n+    height: 50px;\r\n+    background-color: #ff8400;\r\n+    border-radius: 20rpx;\r\n+    text-align: center;\r\n+    line-height: 50px;\r\n+    color: #fff;\r\n+    margin: 0 auto;\r\n+    font-size: 30rpx;\r\n+  }\r\n+}\r\n </style>\r\n"
+                },
+                {
+                    "date": 1752556136464,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -220,5 +220,19 @@\n     margin: 0 auto;\r\n     font-size: 30rpx;\r\n   }\r\n }\r\n+.btns {\r\n+  width: 60%;\r\n+  height: 30px;\r\n+  background-color: rgb(238, 62, 38);\r\n+  color: #fff;\r\n+  text-align: center;\r\n+  line-height: 30px;\r\n+  border-radius: 5px;\r\n+  margin: auto;\r\n+  font-size: 14px;\r\n+  position: fixed;\r\n+  bottom: 20px;\r\n+  left: 20%;\r\n+}\r\n </style>\r\n"
+                },
+                {
+                    "date": 1752556155547,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -220,19 +220,22 @@\n     margin: 0 auto;\r\n     font-size: 30rpx;\r\n   }\r\n }\r\n-.btns {\r\n-  width: 60%;\r\n-  height: 30px;\r\n-  background-color: rgb(238, 62, 38);\r\n+.btns1 {\r\n+  width: 100%;\r\n+  height: 70rpx;\r\n+  background-color: #ff8400;\r\n+  border-radius: 15rpx;\r\n+  text-align: center;\r\n+  line-height: 70rpx;\r\n   color: #fff;\r\n-  text-align: center;\r\n-  line-height: 30px;\r\n-  border-radius: 5px;\r\n-  margin: auto;\r\n-  font-size: 14px;\r\n-  position: fixed;\r\n-  bottom: 20px;\r\n-  left: 20%;\r\n+  margin-top: 200rpx;\r\n }\r\n+/* 聚焦状态 */\r\n+::v-deep .is-focused {\r\n+  border-color: #999 !important; /* 聚焦时的边框颜色 */\r\n+  .uniui-eye-filled {\r\n+    color: rgb(192, 196, 204) !important; /* 红色 */\r\n+  }\r\n+}\r\n </style>\r\n"
+                },
+                {
+                    "date": 1752556284472,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -190,8 +190,9 @@\n .loginWay {\r\n   letter-spacing: 3rpx;\r\n   font-size: 28rpx;\r\n   margin-top: 100rpx;\r\n+  background-color: #fff;\r\n   .sign {\r\n     width: 90%;\r\n     height: 50px;\r\n     background-color: #f3f4f6;\r\n"
+                },
+                {
+                    "date": 1752556294287,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -191,8 +191,9 @@\n   letter-spacing: 3rpx;\r\n   font-size: 28rpx;\r\n   margin-top: 100rpx;\r\n   background-color: #fff;\r\n+  border-radius: 15rpx;\r\n   .sign {\r\n     width: 90%;\r\n     height: 50px;\r\n     background-color: #f3f4f6;\r\n"
+                },
+                {
+                    "date": 1752556302458,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -223,9 +223,9 @@\n     font-size: 30rpx;\r\n   }\r\n }\r\n .btns1 {\r\n-  width: 100%;\r\n+  width: 80%;\r\n   height: 70rpx;\r\n   background-color: #ff8400;\r\n   border-radius: 15rpx;\r\n   text-align: center;\r\n"
+                },
+                {
+                    "date": 1752556322579,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -231,8 +231,9 @@\n   text-align: center;\r\n   line-height: 70rpx;\r\n   color: #fff;\r\n   margin-top: 200rpx;\r\n+  margin: auto;\r\n }\r\n /* 聚焦状态 */\r\n ::v-deep .is-focused {\r\n   border-color: #999 !important; /* 聚焦时的边框颜色 */\r\n"
+                },
+                {
+                    "date": 1752556332170,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -231,9 +231,9 @@\n   text-align: center;\r\n   line-height: 70rpx;\r\n   color: #fff;\r\n   margin-top: 200rpx;\r\n-  margin: auto;\r\n+  margin: 200rpx auto;\r\n }\r\n /* 聚焦状态 */\r\n ::v-deep .is-focused {\r\n   border-color: #999 !important; /* 聚焦时的边框颜色 */\r\n"
+                },
+                {
+                    "date": 1752556353303,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <template>\r\n   <div class=\"container\">\r\n     <navbar current=\"个人中心\"></navbar>\r\n-    <view class=\"loginWay\">\r\n+    <view class=\"loginWay\" style=\"padding: 80rpx\">\r\n       <uni-forms ref=\"baseForm\" :modelValue=\"baseFormData\" :rules=\"rules\">\r\n         <uni-forms-item label=\"用户名\" required name=\"username\">\r\n           <uni-easyinput\r\n             prefixIcon=\"person\"\r\n@@ -230,9 +230,8 @@\n   border-radius: 15rpx;\r\n   text-align: center;\r\n   line-height: 70rpx;\r\n   color: #fff;\r\n-  margin-top: 200rpx;\r\n   margin: 200rpx auto;\r\n }\r\n /* 聚焦状态 */\r\n ::v-deep .is-focused {\r\n"
+                },
+                {
+                    "date": 1752556360301,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <template>\r\n   <div class=\"container\">\r\n     <navbar current=\"个人中心\"></navbar>\r\n-    <view class=\"loginWay\" style=\"padding: 80rpx\">\r\n+    <view class=\"loginWay\" style=\"padding: 30rpx\">\r\n       <uni-forms ref=\"baseForm\" :modelValue=\"baseFormData\" :rules=\"rules\">\r\n         <uni-forms-item label=\"用户名\" required name=\"username\">\r\n           <uni-easyinput\r\n             prefixIcon=\"person\"\r\n"
+                },
+                {
+                    "date": 1752556386324,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -230,9 +230,9 @@\n   border-radius: 15rpx;\r\n   text-align: center;\r\n   line-height: 70rpx;\r\n   color: #fff;\r\n-  margin: 200rpx auto;\r\n+  margin: 200rpx auto 0;\r\n }\r\n /* 聚焦状态 */\r\n ::v-deep .is-focused {\r\n   border-color: #999 !important; /* 聚焦时的边框颜色 */\r\n"
+                },
+                {
+                    "date": 1752556391459,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -230,9 +230,9 @@\n   border-radius: 15rpx;\r\n   text-align: center;\r\n   line-height: 70rpx;\r\n   color: #fff;\r\n-  margin: 200rpx auto 0;\r\n+  margin: 100rpx auto 0;\r\n }\r\n /* 聚焦状态 */\r\n ::v-deep .is-focused {\r\n   border-color: #999 !important; /* 聚焦时的边框颜色 */\r\n"
+                },
+                {
+                    "date": 1752556410879,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,13 @@\n <template>\r\n   <div class=\"container\">\r\n     <navbar current=\"个人中心\"></navbar>\r\n+     <view class=\"bg\">\r\n+      <view>\r\n+        <img :src=\"require('@/static/icons-title.png')\" style=\" width: 200rpx;height: 200rpx;border-radius: 50%;\"></img>\r\n+      </view>\r\n+      <view style=\"margin-top: 24rpx\">消防站物资装备出入库</view>\r\n+    </view>\r\n     <view class=\"loginWay\" style=\"padding: 30rpx\">\r\n       <uni-forms ref=\"baseForm\" :modelValue=\"baseFormData\" :rules=\"rules\">\r\n         <uni-forms-item label=\"用户名\" required name=\"username\">\r\n           <uni-easyinput\r\n"
+                },
+                {
+                    "date": 1752556449243,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,8 @@\n <template>\r\n   <div class=\"container\">\r\n     <navbar current=\"个人中心\"></navbar>\r\n-     <view class=\"bg\">\r\n-      <view>\r\n-        <img :src=\"require('@/static/icons-title.png')\" style=\" width: 200rpx;height: 200rpx;border-radius: 50%;\"></img>\r\n-      </view>\r\n-      <view style=\"margin-top: 24rpx\">消防站物资装备出入库</view>\r\n-    </view>\r\n+\r\n     <view class=\"loginWay\" style=\"padding: 30rpx\">\r\n       <uni-forms ref=\"baseForm\" :modelValue=\"baseFormData\" :rules=\"rules\">\r\n         <uni-forms-item label=\"用户名\" required name=\"username\">\r\n           <uni-easyinput\r\n"
+                },
+                {
+                    "date": 1752556474032,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,13 @@\n <template>\r\n   <div class=\"container\">\r\n     <navbar current=\"个人中心\"></navbar>\r\n-\r\n     <view class=\"loginWay\" style=\"padding: 30rpx\">\r\n+       \r\n+      <view>\r\n+        <img :src=\"require('@/static/icons-title.png')\" style=\" width: 200rpx;height: 200rpx;border-radius: 50%;\"></img>\r\n+      </view>\r\n+      <view style=\"margin-top: 24rpx\">消防站物资装备出入库</view>\r\n       <uni-forms ref=\"baseForm\" :modelValue=\"baseFormData\" :rules=\"rules\">\r\n         <uni-forms-item label=\"用户名\" required name=\"username\">\r\n           <uni-easyinput\r\n             prefixIcon=\"person\"\r\n"
+                },
+                {
+                    "date": 1752556479660,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,8 @@\n <template>\r\n   <div class=\"container\">\r\n     <navbar current=\"个人中心\"></navbar>\r\n     <view class=\"loginWay\" style=\"padding: 30rpx\">\r\n-       \r\n-      <view>\r\n-        <img :src=\"require('@/static/icons-title.png')\" style=\" width: 200rpx;height: 200rpx;border-radius: 50%;\"></img>\r\n-      </view>\r\n       <view style=\"margin-top: 24rpx\">消防站物资装备出入库</view>\r\n       <uni-forms ref=\"baseForm\" :modelValue=\"baseFormData\" :rules=\"rules\">\r\n         <uni-forms-item label=\"用户名\" required name=\"username\">\r\n           <uni-easyinput\r\n"
+                },
+                {
+                    "date": 1752556487271,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n <template>\r\n   <div class=\"container\">\r\n     <navbar current=\"个人中心\"></navbar>\r\n     <view class=\"loginWay\" style=\"padding: 30rpx\">\r\n-      <view style=\"margin-top: 24rpx\">消防站物资装备出入库</view>\r\n+      <view style=\"margin-top: 24rpx; color: #000\">消防站物资装备出入库</view>\r\n       <uni-forms ref=\"baseForm\" :modelValue=\"baseFormData\" :rules=\"rules\">\r\n         <uni-forms-item label=\"用户名\" required name=\"username\">\r\n           <uni-easyinput\r\n             prefixIcon=\"person\"\r\n"
+                },
+                {
+                    "date": 1752556498934,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,11 @@\n <template>\r\n   <div class=\"container\">\r\n     <navbar current=\"个人中心\"></navbar>\r\n     <view class=\"loginWay\" style=\"padding: 30rpx\">\r\n-      <view style=\"margin-top: 24rpx; color: #000\">消防站物资装备出入库</view>\r\n+      <view style=\"margin-top: 24rpx; color: #000; text-align: center\"\r\n+        >消防站物资装备出入库</view\r\n+      >\r\n       <uni-forms ref=\"baseForm\" :modelValue=\"baseFormData\" :rules=\"rules\">\r\n         <uni-forms-item label=\"用户名\" required name=\"username\">\r\n           <uni-easyinput\r\n             prefixIcon=\"person\"\r\n"
+                },
+                {
+                    "date": 1752556511648,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,16 @@\n <template>\r\n   <div class=\"container\">\r\n     <navbar current=\"个人中心\"></navbar>\r\n     <view class=\"loginWay\" style=\"padding: 30rpx\">\r\n-      <view style=\"margin-top: 24rpx; color: #000; text-align: center\"\r\n+      <view\r\n+        style=\"\r\n+          margin-top: 24rpx;\r\n+          color: #000;\r\n+          text-align: center;\r\n+          margin-bottom: 30rpx;\r\n+          font-size: 24px;\r\n+        \"\r\n         >消防站物资装备出入库</view\r\n       >\r\n       <uni-forms ref=\"baseForm\" :modelValue=\"baseFormData\" :rules=\"rules\">\r\n         <uni-forms-item label=\"用户名\" required name=\"username\">\r\n"
+                },
+                {
+                    "date": 1752556529927,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,9 @@\n           color: #000;\r\n           text-align: center;\r\n           margin-bottom: 30rpx;\r\n           font-size: 24px;\r\n+          font-weight: bold;\r\n         \"\r\n         >消防站物资装备出入库</view\r\n       >\r\n       <uni-forms ref=\"baseForm\" :modelValue=\"baseFormData\" :rules=\"rules\">\r\n"
+                },
+                {
+                    "date": 1752556539598,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,8 @@\n     <navbar current=\"个人中心\"></navbar>\r\n     <view class=\"loginWay\" style=\"padding: 30rpx\">\r\n       <view\r\n         style=\"\r\n-          margin-top: 24rpx;\r\n           color: #000;\r\n           text-align: center;\r\n           margin-bottom: 30rpx;\r\n           font-size: 24px;\r\n"
+                },
+                {
+                    "date": 1752556566125,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n           margin-bottom: 30rpx;\r\n           font-size: 24px;\r\n           font-weight: bold;\r\n         \"\r\n-        >消防站物资装备出入库</view\r\n+        >麦田健康</view\r\n       >\r\n       <uni-forms ref=\"baseForm\" :modelValue=\"baseFormData\" :rules=\"rules\">\r\n         <uni-forms-item label=\"用户名\" required name=\"username\">\r\n           <uni-easyinput\r\n"
+                },
+                {
+                    "date": 1752556573855,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -240,9 +240,9 @@\n   border-radius: 15rpx;\r\n   text-align: center;\r\n   line-height: 70rpx;\r\n   color: #fff;\r\n-  margin: 100rpx auto 0;\r\n+  margin: 50rpx auto 0;\r\n }\r\n /* 聚焦状态 */\r\n ::v-deep .is-focused {\r\n   border-color: #999 !important; /* 聚焦时的边框颜色 */\r\n"
+                }
+            ],
+            "date": 1752549627632,
+            "name": "Commit-0",
+            "content": ""
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "sourceFile": "common/common.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1745386994275,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1745387003120,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,8 @@\n export default {\r\n     // 基础域名\r\n     baseURL() {\r\n       let baseURL = \"\";\r\n-  \r\n       if (process.env.NODE_ENV === \"production\") {\r\n         baseURL = \"http://8.148.226.241/\";\r\n       } else {\r\n         baseURL = \"http://8.148.226.241/\";\r\n"
+                }
+            ],
+            "date": 1745386994275,
+            "name": "Commit-0",
+            "content": "// 通用方法\r\nexport default {\r\n    // 基础域名\r\n    baseURL() {\r\n      let baseURL = \"\";\r\n  \r\n      if (process.env.NODE_ENV === \"production\") {\r\n        baseURL = \"http://8.148.226.241/\";\r\n      } else {\r\n        baseURL = \"http://8.148.226.241/\";\r\n      }\r\n      return baseURL;\r\n    },\r\n    // 消息提示\r\n    showMsg(title = \"数据加载失败！\", duration = 1500, icon = \"none\") {\r\n      uni.showToast({\r\n        title,\r\n        duration,\r\n        icon,\r\n      });\r\n    },\r\n  };\r\n  "
+        }
+    ]
+}

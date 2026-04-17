@@ -1,0 +1,26 @@
+{
+    "sourceFile": "subpkg/yszc/index.vue",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1752632414319,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752632438914,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <template>\r\n-  <div></div>\r\n+  <div class=\"yszc\"></div>\r\n </template>\r\n \r\n <script>\r\n export default {\r\n"
+                },
+                {
+                    "date": 1752632445176,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n <template>\r\n-  <div class=\"yszc\"></div>\r\n+  <div class=\"yszc\">\r\n+    <view class=\"title\"></view>\r\n+  </div>\r\n </template>\r\n \r\n <script>\r\n export default {\r\n"
+                }
+            ],
+            "date": 1752632414319,
+            "name": "Commit-0",
+            "content": "<template>\r\n  <div>\r\n\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nexport default {\r\n  data () {\r\n    return {\r\n\r\n    }\r\n  },\r\n\r\n  created () {\r\n\r\n  },\r\n\r\n  methods: {\r\n\r\n  }\r\n}\r\n</script>\r\n\r\n<style scoped>\r\n\r\n</style>\r\n"
+        }
+    ]
+}

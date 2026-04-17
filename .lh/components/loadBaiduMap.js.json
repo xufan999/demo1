@@ -1,0 +1,18 @@
+{
+    "sourceFile": "components/loadBaiduMap.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1752561877472,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1752561877472,
+            "name": "Commit-0",
+            "content": "export function loadBaiduMap(ak) {\r\n  return new Promise((resolve, reject) => {\r\n    if (window.BMapGL || window.BMap) {\r\n      resolve(window.BMapGL || window.BMap);\r\n      return;\r\n    }\r\n\r\n    window.onBMapLoad = function () {\r\n      resolve(window.BMapGL || window.BMap);\r\n    };\r\n\r\n    const script = document.createElement('script');\r\n    script.src = `https://api.map.baidu.com/api?v=3.0&ak=${ak}&callback=onBMapLoad`;\r\n    script.onerror = () => reject(new Error('百度地图脚本加载失败'));\r\n    document.head.appendChild(script);\r\n  });\r\n}"
+        }
+    ]
+}

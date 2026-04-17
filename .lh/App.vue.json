@@ -1,0 +1,34 @@
+{
+    "sourceFile": "App.vue",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1752551426460,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752551431996,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,7 +11,7 @@\n   },\r\n };\r\n </script>\r\n \r\n-<style>\r\n+<style lang=\"scss\">\r\n @import 'uview-ui/index.scss';\r\n </style>\r\n"
+                },
+                {
+                    "date": 1776329589266,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,22 @@\n   onLaunch: function () {\r\n     console.log('App Launch');\r\n   },\r\n   onShow: function () {\r\n-    console.log('App Show');\r\n+    function getQuery() {\r\n+  const query = {};\r\n+  const search = window.location.href.split('?')[1] || '';\r\n+  const arr = search.split('&');\r\n+\r\n+  arr.forEach(item => {\r\n+    const [key, val] = item.split('=');\r\n+    if (key) {\r\n+      query[key] = decodeURIComponent(val);\r\n+    }\r\n+  });\r\n+\r\n+  return query;\r\n+}\r\n   },\r\n   onHide: function () {\r\n     console.log('App Hide');\r\n   },\r\n"
+                },
+                {
+                    "date": 1776329637331,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,20 @@\n   onLaunch: function () {\r\n     console.log('App Launch');\r\n   },\r\n   onShow: function () {\r\n-    function getQuery() {\r\n+    const query = getQuery();\r\n+\r\n+if (query.token) {\r\n+  localStorage.setItem('token', query.token);\r\n+}\r\n+   \r\n+  },\r\n+  onHide: function () {\r\n+    console.log('App Hide');\r\n+  },\r\n+  methods: {\r\n+  function getQuery() {\r\n       const query = {};\r\n       const search = window.location.href.split('?')[1] || '';\r\n       const arr = search.split('&');\r\n \r\n@@ -18,11 +29,8 @@\n \r\n       return query;\r\n     }\r\n   },\r\n-  onHide: function () {\r\n-    console.log('App Hide');\r\n-  },\r\n };\r\n </script>\r\n \r\n <style lang=\"scss\">\r\n"
+                },
+                {
+                    "date": 1776329721777,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,22 +13,26 @@\n   onHide: function () {\r\n     console.log('App Hide');\r\n   },\r\n   methods: {\r\n-    getQuery() {\r\n-      const query = {};\r\n-      const search = window.location.href.split('?')[1] || '';\r\n-      const arr = search.split('&');\r\n+   getQuery() {\r\n+  const query = {};\r\n \r\n-      arr.forEach((item) => {\r\n-        const [key, val] = item.split('=');\r\n-        if (key) {\r\n-          query[key] = decodeURIComponent(val);\r\n-        }\r\n-      });\r\n+  // 关键：取 hash 后的参数\r\n+  const hash = window.location.hash || '';\r\n+  const queryStr = hash.split('?')[1] || '';\r\n \r\n-      return query;\r\n-    },\r\n+  const arr = queryStr.split('&');\r\n+\r\n+  arr.forEach((item) => {\r\n+    const [key, val] = item.split('=');\r\n+    if (key) {\r\n+      query[key] = decodeURIComponent(val);\r\n+    }\r\n+  });\r\n+\r\n+  return query;\r\n+}\r\n   },\r\n };\r\n </script>\r\n \r\n"
+                }
+            ],
+            "date": 1752551426460,
+            "name": "Commit-0",
+            "content": "<script>\r\nexport default {\r\n  onLaunch: function () {\r\n    console.log('App Launch');\r\n  },\r\n  onShow: function () {\r\n    console.log('App Show');\r\n  },\r\n  onHide: function () {\r\n    console.log('App Hide');\r\n  },\r\n};\r\n</script>\r\n\r\n<style>\r\n@import 'uview-ui/index.scss';\r\n</style>\r\n"
+        }
+    ]
+}

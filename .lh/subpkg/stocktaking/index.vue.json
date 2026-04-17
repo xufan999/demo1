@@ -1,0 +1,46 @@
+{
+    "sourceFile": "subpkg/stocktaking/index.vue",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1745721534215,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1745721541182,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,27 +1,17 @@\n <template>\r\n-  <div>\r\n-\r\n-  </div>\r\n+  <div class=\"stock\"></div>\r\n </template>\r\n \r\n <script>\r\n export default {\r\n-  data () {\r\n-    return {\r\n-\r\n-    }\r\n+  data() {\r\n+    return {};\r\n   },\r\n \r\n-  created () {\r\n+  created() {},\r\n \r\n-  },\r\n-\r\n-  methods: {\r\n-\r\n-  }\r\n-}\r\n+  methods: {},\r\n+};\r\n </script>\r\n \r\n-<style scoped>\r\n-\r\n-</style>\r\n+<style scoped></style>\r\n"
+                },
+                {
+                    "date": 1745721546263,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,8 @@\n <template>\r\n-  <div class=\"stock\"></div>\r\n+  <div class=\"stocktacking\">\r\n+    \r\n+  </div>\r\n </template>\r\n \r\n <script>\r\n export default {\r\n"
+                },
+                {
+                    "date": 1745721553707,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,17 @@\n <template>\r\n   <div class=\"stocktacking\">\r\n-    \r\n+    <view class=\"uni-container\">\r\n+        <zb-table\r\n+          :show-header=\"true\"\r\n+          :columns=\"pd.column\"\r\n+          :stripe=\"true\"\r\n+          :fit=\"false\"\r\n+          :border=\"true\"\r\n+          @edit=\"buttonEdit4\"\r\n+          :data=\"pd.data\"\r\n+        ></zb-table>\r\n+      </view>\r\n   </div>\r\n </template>\r\n \r\n <script>\r\n"
+                },
+                {
+                    "date": 1745721585712,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,57 @@\n \r\n <script>\r\n export default {\r\n   data() {\r\n-    return {};\r\n+    return {\r\n+        pd: {\r\n+        column: [\r\n+          {\r\n+            name: 'name',\r\n+            label: '名称',\r\n+            fixed: true,\r\n+            width: 60,\r\n+            emptyString: '--',\r\n+            align: 'center',\r\n+          },\r\n+          {\r\n+            name: 'kind',\r\n+            label: '类型',\r\n+            sorter: false,\r\n+            align: 'center',\r\n+            width: 80,\r\n+          },\r\n+          { name: 'spec', label: '规格', width: 80, align: 'center' },\r\n+          {\r\n+            name: 'count',\r\n+            label: '数量',\r\n+            sorter: true,\r\n+            width: 140,\r\n+            align: 'center',\r\n+          },\r\n+          {\r\n+            name: 'operation',\r\n+            type: 'operation',\r\n+            label: '操作',\r\n+            fixed: true,\r\n+            align: 'center',\r\n+            renders: [\r\n+              {\r\n+                name: '核检',\r\n+                func: 'edit', // func 代表子元素点击的事件 父元素接收的事件 父元素 @edit\r\n+              },\r\n+              // {\r\n+              //   name: '详情',\r\n+              //   type: 'primary', // type 为custom的时候自定义按钮\r\n+              //   class: 'del',\r\n+              //   func: 'dele',\r\n+              // },\r\n+            ],\r\n+          },\r\n+        ],\r\n+        data: [],\r\n+      },\r\n+    };\r\n   },\r\n \r\n   created() {},\r\n \r\n"
+                },
+                {
+                    "date": 1745721654405,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -69,9 +69,21 @@\n   },\r\n \r\n   created() {},\r\n \r\n-  methods: {},\r\n+  methods: {\r\n+    //获取装备列表   //申请领用的时候不能重复，需要排除掉\r\n+    async getEquipment() {\r\n+      const res = await equipmentList({\r\n+        limit: 100,\r\n+      });\r\n+      this.pd.data = res.data.list;\r\n+      this.rangecheck = this.pd.data.map((item) => ({\r\n+        value: item.uid,\r\n+        text: item.name,\r\n+      }));\r\n+    },\r\n+  },\r\n };\r\n </script>\r\n \r\n <style scoped></style>\r\n"
+                },
+                {
+                    "date": 1745721674766,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,21 @@\n   </div>\r\n </template>\r\n \r\n <script>\r\n+import {\r\n+  equipmentCheck,\r\n+  receive,\r\n+  receiveCheck,\r\n+  receiveConfirm,\r\n+  returnCheck,\r\n+  returnConfirm,\r\n+  receiveSelect,\r\n+  equipmentList,\r\n+  equipmentAdd,\r\n+  equipmentDetail,\r\n+  equipmentItemGet,\r\n+} from '@/api/api.js';\r\n export default {\r\n   data() {\r\n     return {\r\n       pd: {\r\n"
+                },
+                {
+                    "date": 1745721705017,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,9 +51,9 @@\n             fixed: true,\r\n             align: 'center',\r\n             renders: [\r\n               {\r\n-                name: '核检',\r\n+                name: '核减',\r\n                 func: 'edit', // func 代表子元素点击的事件 父元素接收的事件 父元素 @edit\r\n               },\r\n               // {\r\n               //   name: '详情',\r\n"
+                }
+            ],
+            "date": 1745721534215,
+            "name": "Commit-0",
+            "content": "<template>\r\n  <div>\r\n\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nexport default {\r\n  data () {\r\n    return {\r\n\r\n    }\r\n  },\r\n\r\n  created () {\r\n\r\n  },\r\n\r\n  methods: {\r\n\r\n  }\r\n}\r\n</script>\r\n\r\n<style scoped>\r\n\r\n</style>\r\n"
+        }
+    ]
+}
