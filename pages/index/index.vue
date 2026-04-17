@@ -438,6 +438,7 @@ export default {
   height: 100%;
   object-fit: cover;
   background: #000;
+  z-index: 999;
 }
 
 .prepare-layer {
@@ -613,7 +614,7 @@ export default {
   right: 20px;
   width: 120px;
   height: 160px;
-  z-index: 20;
+  z-index: 999;
 }
 
 .camera-small {
