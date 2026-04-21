@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <view v-if="stage === 2" class="stage2-wrapper">
+    <view v-show="stage === 2" class="stage2-wrapper">
       <view class="top-bar">
         <view class="train-info">
           <text class="dot"></text>
@@ -11,6 +11,7 @@
           <view class="close" @click="exit">
             <view class="icon-btn">
               <image src="/static/close.png"></image>
+              <!-- <uni-icons type="close" size="20"></uni-icons> -->
             </view>
           </view>
         </view>
@@ -47,6 +48,7 @@
         ></video>
         <view class="switch-btn" @click="switchCamera">
           <image src="/static/jingtoufanzhuan.png"></image>
+          <!-- <uni-icons type="camera" size="20"></uni-icons> -->
         </view>
       </view>
 
@@ -68,7 +70,7 @@
     </view>
 
     <view class="ui-layer">
-      <view v-if="stage === 1" class="prepare-layer">
+      <view v-show="stage === 1" class="prepare-layer">
         <video
           ref="cameraPrepare"
           class="camera-full"
@@ -148,6 +150,7 @@ export default {
       audioPlayer: null,
       isAudioProcessing: false,
       payBool: false,
+      rafId: '',
     };
   },
   computed: {
@@ -168,7 +171,14 @@ export default {
     //   'MT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNTczMjY5OTQxNTkzODMzNDc4LCJleHAiOjE4MDIyNDE4MTcsInYiOjF9.8b1g-UQEjO2rEzaKHIu9nRz9A17Bnwg2Mn3bPzTQg8I';
     if (query.item) {
       try {
-        this.taskList = JSON.parse(decodeURIComponent(query.item));
+        const parsed = JSON.parse(decodeURIComponent(query.item));
+        if (Array.isArray(parsed)) {
+          this.taskList = parsed;
+        } else if (parsed && typeof parsed === 'object') {
+          this.taskList = [parsed];
+        } else {
+          this.taskList = [];
+        }
       } catch (e) {
         console.warn('item 解析失败', e);
         this.taskList = [];
@@ -221,7 +231,6 @@ export default {
         });
         if (res.data.code === 0) {
           this.taskList = res.data.data.day_tasks || [];
-
           // ✅ 拿到数据后初始化任务
           this.initCurrentTask();
         } else {
@@ -258,63 +267,39 @@ export default {
 
       this.poseReady = true;
     },
+    // 修改后的 startDetect 逻辑
     startDetect() {
-      let video = this.$refs.cameraStage2;
-
-      // ⭐ 获取真实 video
-      video = video?.$el || video;
-      if (video && video.tagName !== 'VIDEO') {
-        video = video.querySelector('video');
-      }
+      const video = this.$refs.cameraStage2?.$el || this.$refs.cameraStage2;
 
       const run = () => {
-        if (!this.poseReady) {
-          requestAnimationFrame(run);
-          return;
-        }
+        // 只有在 Stage 2 且 视频流准备好时才检测
+        if (this.stage === 2 && video && video.readyState >= 2) {
+          const now = performance.now();
 
-        if (!video) {
-          requestAnimationFrame(run);
-          return;
-        }
+          // 严格控制在 66ms 左右采样一次 (15fps)
+          if (now - this.lastDetectTime >= this.detectInterval) {
+            this.lastDetectTime = now;
 
-        // ✅ 必须 ready >= 4
-        if (video.readyState < 4) {
-          requestAnimationFrame(run);
-          return;
-        }
+            try {
+              const result = this.poseLandmarker.detectForVideo(video, now);
+              if (result.landmarks?.length) {
+                const frame = this.convertFrame(result.landmarks[0]);
+                this.poseFrames.push(frame);
 
-        // ✅ 必须有尺寸
-        if (video.videoWidth === 0 || video.videoHeight === 0) {
-          requestAnimationFrame(run);
-          return;
-        }
-
-        const now = performance.now();
-
-        if (now - this.lastDetectTime >= this.detectInterval) {
-          this.lastDetectTime = now;
-
-          try {
-            const result = this.poseLandmarker.detectForVideo(video, now);
-
-            if (result.landmarks?.length) {
-              const frame = this.convertFrame(result.landmarks[0]);
-              this.poseFrames.push(frame);
-              // ✅ 只保留最近150帧（10秒 * 15fps）
-              if (this.poseFrames.length > 150) {
-                this.poseFrames.shift();
+                // 限制数组长度，防止内存溢出（比如只存最近 5 秒的数据，15*5=75帧）
+                if (this.poseFrames.length > 75) {
+                  this.poseFrames.shift();
+                }
               }
+            } catch (err) {
+              console.error('检测中断:', err);
             }
-          } catch (err) {
-            console.warn('detect 出错', err);
           }
         }
-
-        requestAnimationFrame(run);
+        // 持续循环
+        this.rafId = requestAnimationFrame(run);
       };
-
-      run();
+      this.rafId = requestAnimationFrame(run);
     },
     unlockAudio() {
       const audio = new Audio();
@@ -357,21 +342,24 @@ export default {
       return frame;
     },
     async callNewApi() {
-      if (!this.payBool) return;
-      if (!this.poseFrames.length) return;
-      if (this.hasSentNew) return; // ✅ 锁
+      if (!this.payBool || this.poseFrames.length < 15) return; // 至少有一秒数据再发
 
-      this.hasSentNew = true;
+      // 拷贝当前帧数组并清空原数组，实现“分段发送”
+      const currentFrames = [...this.poseFrames];
+      this.poseFrames = [];
+
       const payload = {
-        frames: this.poseFrames,
+        frames: currentFrames,
         meta: {
           fps: 15,
-          frame_count: this.poseFrames.length,
-          duration_ms: Math.floor(this.poseFrames.length * 66),
+          frame_count: currentFrames.length,
+          duration_ms: Math.floor(currentFrames.length * 66),
         },
       };
+
       const videoId =
         this.currentTask?.video?.uid || this.currentTask?.uid || '';
+
       try {
         const res = await uni.request({
           url: 'https://ailmjl.maitianlife.com/api/user_pose_assessment/new/',
@@ -382,19 +370,15 @@ export default {
           },
           data: {
             video_id: videoId,
-            // video_id: 'eXN1EaWnAjYwQ7Mek1RV',
             input_payload: payload,
           },
         });
 
         if (res.data.code === 0) {
-          const uid = res.data.data.uid;
-
-          // ✅ 开始轮询 feedback
-          this.startFeedbackPolling(uid);
+          this.startFeedbackPolling(res.data.data.uid);
         }
       } catch (err) {
-        console.error('new接口失败', err);
+        this.hasSentNew = false; // 失败重置锁
       }
     },
     async startFeedbackPolling(uid) {
@@ -559,15 +543,17 @@ export default {
       await this.startCamera();
     },
     initCurrentTask() {
+      if (!Array.isArray(this.taskList) || this.taskList.length === 0) {
+        return false;
+      }
       const task = this.taskList[this.currentIndex];
       if (!task) return false;
-
+      const url = task.video?.video_url;
+      if (!url) return false;
       this.currentTask = task;
-      this.videoUrl = task.video?.video_url || '';
+      this.videoUrl = url;
       this.currentTitle = task.title || task.video?.title || '';
-
-      // 这里不再调用 playNextTask，只返回一个布尔值告诉外部是否成功
-      return !!this.videoUrl;
+      return true;
     },
     showTitleBeforeVideo() {
       clearInterval(this.titleTimer);

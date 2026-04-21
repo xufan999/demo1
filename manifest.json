@@ -53,6 +53,11 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
+      "permission": {
+          "scope.userLocation": { "desc": "您的位置将用于展示数据" },
+          "scope.record": { "desc": "语音功能需要录音权限" },
+          "scope.camera": { "desc": "拍摄功能需要摄像头权限" }
+        },
         "appid" : "https://www.zyszxf.com/",
         "setting" : {
             "urlCheck" : false
