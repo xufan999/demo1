@@ -169,25 +169,30 @@ export default {
     this.token = query.token || '';
     // this.token =
     //   'MT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNTczMjY5OTQxNTkzODMzNDc4LCJleHAiOjE4MDIyNDE4MTcsInYiOjF9.8b1g-UQEjO2rEzaKHIu9nRz9A17Bnwg2Mn3bPzTQg8I';
+    let parsed = null;
     if (query.item) {
+      console.log(11);
       try {
-        const parsed = JSON.parse(decodeURIComponent(query.item));
-        if (Array.isArray(parsed)) {
-          this.taskList = parsed;
-        } else if (parsed && typeof parsed === 'object') {
-          this.taskList = [parsed];
-        } else {
-          this.taskList = [];
-        }
+        parsed = JSON.parse(decodeURIComponent(query.item));
       } catch (e) {
-        console.warn('item 解析失败', e);
-        this.taskList = [];
+        parsed = null;
       }
+    }
+    if (
+      parsed &&
+      ((Array.isArray(parsed) && parsed.length > 0) ||
+        (typeof parsed === 'object' && Object.keys(parsed).length > 0))
+    ) {
+      // ✅ 有数据
+      this.taskList = Array.isArray(parsed) ? parsed : [parsed];
+      console.log(22);
     } else if (this.uid) {
-      // ✅ 没有 item，用 uid 调接口
+      // ✅ 空对象 / 空数组 → 走接口
       this.fetchTaskList(this.uid);
+      console.log(33);
     } else {
       this.taskList = [];
+      console.log(44);
     }
     this.payBool = query.payBool === 'true';
     if (this.token) {
@@ -231,6 +236,7 @@ export default {
         });
         if (res.data.code === 0) {
           this.taskList = res.data.data.day_tasks || [];
+          console.log(this.taskList, '1122');
           // ✅ 拿到数据后初始化任务
           this.initCurrentTask();
         } else {
