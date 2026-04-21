@@ -181,38 +181,28 @@ export default {
 
         if (Array.isArray(parsed)) {
           this.taskList = parsed;
-          console.log(1);
         } else if (parsed && typeof parsed === 'object' && !isEmptyObject) {
           this.taskList = [parsed];
-          console.log(2);
         } else {
-          console.log(3);
           // ❗ 空对象，走接口
           if (this.uid) {
             this.fetchTaskList(this.uid);
-            console.log(4);
           } else {
             this.taskList = [];
-            console.log(5);
           }
         }
       } catch (e) {
         console.warn('item 解析失败', e);
-        console.log(6);
 
         if (this.uid) {
           this.fetchTaskList(this.uid);
-          console.log(7);
         } else {
           this.taskList = [];
-          console.log(8);
         }
       }
     } else if (this.uid) {
-      console.log(9);
       this.fetchTaskList(this.uid);
     } else {
-      console.log(10);
       this.taskList = [];
     }
     this.payBool = query.payBool === 'true';
@@ -256,7 +246,7 @@ export default {
           },
         });
         if (res.data.code === 0) {
-          this.taskList = res.data.data.day_tasks || [];
+          this.taskList = res.data.data.data.day_tasks || [];
           console.log(this.taskList, '1122');
           // ✅ 拿到数据后初始化任务
           this.initCurrentTask();
