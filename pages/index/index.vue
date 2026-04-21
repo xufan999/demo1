@@ -67,9 +67,6 @@
       </view>
     </view>
     <view class="ui-layer">
-      <view v-if="!hasStarted" class="start-overlay">
-        <button @click="handleStart">开始进入训练</button>
-      </view>
       <view v-show="stage === 1" class="prepare-layer">
         <video
           ref="cameraPrepare"
@@ -152,6 +149,7 @@ export default {
       payBool: false,
       rafId: '',
       hasStarted: false,
+      currentAudioUrl: '',
     };
   },
   computed: {
@@ -208,56 +206,55 @@ export default {
     if (this.token) {
       localStorage.setItem('token', this.token);
     }
-    // this.audioPlayer = new Audio();
-    // this.audioPlayer.crossOrigin = 'anonymous';
-    // document.addEventListener(
-    //   'click',
-    //   () => {
-    //     //用真实音频预加载一次
-    //     this.audioPlayer.src =
-    //       'data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAA...';
-    //     this.audioPlayer.play().catch(() => {});
-    //   },
-    //   { once: true },
-    // );
+    this.initPermissionCheck();
     // 这里再初始化逻辑
     this.audioPlayer = new Audio();
     this.audioPlayer.crossOrigin = 'anonymous';
     this.initCurrentTask();
-    // this.startPrepare();
-    // this.startTrainTimer();
-    // this.initPose().then(() => {
-    //   this.startCamera();
-    // });
   },
   beforeDestroy() {
     this.clearAllTimers();
     this.stopCamera();
   },
   methods: {
-    async handleStart() {
-      this.hasStarted = true;
-      // ✅ 1. 解锁音频（必须点击触发）
-      try {
-        this.audioPlayer.src =
-          'data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAA...';
-        await this.audioPlayer.play();
-        this.audioPlayer.pause();
-        this.audioPlayer.currentTime = 0;
-      } catch (e) {
-        console.warn('音频解锁失败', e);
+    initPermissionCheck() {
+      if (!this.hasStarted) {
+        uni.showModal({
+          title: '提示',
+          content: '请开启摄像权限，以便进一步深度分析',
+          confirmText: '确认开启',
+          showCancel: false, // 💡 隐藏取消按钮，强制用户点击确认
+          success: (res) => {
+            if (res.confirm) {
+              this.handleStart();
+            } else {
+              // 💡 兜底逻辑：如果用户通过其他手段关闭了弹窗，递归调用再次弹出
+              this.initPermissionCheck();
+            }
+          },
+        });
       }
-      // ✅ 2. 初始化 pose（⚠️ 很关键）
+    },
+    async handleStart() {
+      // 标记已开始，防止重复触发
+      this.hasStarted = true;
+      // 1. 解锁音频上下文
+      this.unlockAudio();
+      // 2. 加载 AI 模型（耗时操作建议加 loading）
+      uni.showLoading({ title: '模型加载中...', mask: true });
       try {
         await this.initPose();
+        // 3. 启动摄像头
+        await this.startCamera();
+        // 4. 进入计时和阶段流程
+        this.startPrepare();
+        this.startTrainTimer();
       } catch (e) {
-        console.error('pose 初始化失败', e);
+        console.error('启动失败', e);
+        uni.showToast({ title: '初始化失败，请重试', icon: 'none' });
+      } finally {
+        uni.hideLoading();
       }
-      // ✅ 3. 打开摄像头（⚠️ 必须在点击里）
-      await this.startCamera();
-      // ✅ 4. 再启动业务流程
-      this.startPrepare();
-      this.startTrainTimer();
     },
     unlockAudio() {
       this.audioPlayer
@@ -392,11 +389,9 @@ export default {
     },
     async callNewApi() {
       if (!this.payBool || this.poseFrames.length < 15) return; // 至少有一秒数据再发
-
       // 拷贝当前帧数组并清空原数组，实现“分段发送”
       const currentFrames = [...this.poseFrames];
       this.poseFrames = [];
-
       const payload = {
         frames: currentFrames,
         meta: {
@@ -408,7 +403,6 @@ export default {
 
       const videoId =
         this.currentTask?.video?.uid || this.currentTask?.uid || '';
-
       try {
         const res = await uni.request({
           url: 'https://ailmjl.maitianlife.com/api/user_pose_assessment/new/',
@@ -482,21 +476,28 @@ export default {
           return;
         }
 
-        this.audioPlayer.src = url;
+        const audio = this.audioPlayer;
 
-        this.audioPlayer.onended = () => {
-          console.log('音频播放结束');
-          resolve(); // ✅ 播放完才继续
+        audio.src = url;
+
+        const cleanup = () => {
+          audio.onended = null;
+          audio.onerror = null;
         };
 
-        this.audioPlayer.onerror = () => {
-          console.warn('音频失败，直接继续');
-          resolve(); // ✅ 出错也继续
+        audio.onended = () => {
+          cleanup();
+          resolve();
         };
 
-        this.audioPlayer.play().catch(() => {
-          console.warn('播放失败');
-          resolve(); // ✅ 被拦截也继续
+        audio.onerror = () => {
+          cleanup();
+          resolve();
+        };
+
+        audio.play().catch(() => {
+          cleanup();
+          resolve();
         });
       });
     },
@@ -589,10 +590,17 @@ export default {
       }
       const task = this.taskList[this.currentIndex];
       if (!task) return false;
-      const url = task.video?.video_url;
-      if (!url) return false;
+
+      // 兼容两种数据结构：task.video.video_url 或直接 task.video_url
+      const videoUrl = task.video?.video_url || task.video_url;
+      const audioUrl = task.video?.instruction_audio || task.instruction_audio;
+
+      if (!videoUrl) return false;
+
       this.currentTask = task;
-      this.videoUrl = url;
+      this.videoUrl = videoUrl;
+      // 将音频地址也存入 data
+      this.currentAudioUrl = audioUrl;
       this.currentTitle = task.title || task.video?.title || '';
       return true;
     },
@@ -615,20 +623,29 @@ export default {
       }, 1000);
     },
     playVideo() {
-      setTimeout(() => {
-        const trainVideo = this.$refs.trainVideo;
+      const trainVideo = this.$refs.trainVideo;
 
-        if (trainVideo && typeof trainVideo.play === 'function') {
-          const res = trainVideo.play();
+      if (!trainVideo) return;
 
-          // ✅ 兼容写法
-          if (res && typeof res.then === 'function') {
-            res.catch(() => {});
-          }
+      const start = () => {
+        const res = trainVideo.play();
+        if (res?.catch) res.catch(() => {});
+
+        if (this.currentAudioUrl) {
+          this.playAudio(this.currentAudioUrl);
         }
 
         this.isPlaying = true;
-      }, 300);
+      };
+
+      // ✅ 已经 ready
+      if (trainVideo.readyState >= 2) {
+        start();
+      } else {
+        trainVideo.onloadeddata = () => {
+          start();
+        };
+      }
     },
     startPrepare() {
       this.prepareTimer = setInterval(() => {
@@ -702,7 +719,10 @@ export default {
     async playNextTask() {
       this.poseFrames = [];
       this.hasSentNew = false;
-
+      if (this.audioPlayer) {
+        this.audioPlayer.pause();
+        this.audioPlayer.currentTime = 0;
+      }
       // 核心改动：用一个循环找到下一个带有有效 videoUrl 的任务
       let found = false;
       while (this.currentIndex < this.taskList.length - 1) {
@@ -808,8 +828,14 @@ export default {
       if (!trainVideo) return;
       if (this.isPlaying) {
         trainVideo.pause();
+        // ✅ 暂停音频
+        if (this.audioPlayer) this.audioPlayer.pause();
       } else {
         trainVideo.play().catch(() => {});
+        // ✅ 恢复音频
+        if (this.audioPlayer && this.currentAudioUrl) {
+          this.audioPlayer.play().catch(() => {});
+        }
       }
       this.isPlaying = !this.isPlaying;
     },
@@ -1111,6 +1137,6 @@ export default {
 }
 </style>
 <!-- 
-1、在微信打开链接一开始不会默认开启摄像头和音频
-需要一开始就要用户点击调取摄像头和开启音频，然后在进行下一步操作
+如果payBool为false,如果有多个视频，则第一个视频播放完，紧接着播放
+第二个视频，一直到
 -->
