@@ -91,7 +91,7 @@
             <view class="count-number">{{ prepareCount }}</view>
             <view class="count-text">请保证全身出现在手机屏幕中</view>
           </view>
-          <view class="skip-btn" @click="goStage2">跳过1</view>
+          <view class="skip-btn" @click="goStage2">跳过12</view>
         </view>
       </view>
     </view>
