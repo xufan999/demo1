@@ -16,7 +16,6 @@
           </view>
         </view>
       </view>
-
       <video
         id="trainVideo"
         ref="trainVideo"
@@ -30,7 +29,6 @@
         @timeupdate="onTimeUpdate"
         @ended="videoEnded"
       ></video>
-
       <view class="camera-wrapper">
         <video
           ref="cameraStage2"
@@ -68,8 +66,10 @@
         </view>
       </view>
     </view>
-
     <view class="ui-layer">
+      <view v-if="!hasStarted" class="start-overlay">
+        <button @click="handleStart">开始进入训练</button>
+      </view>
       <view v-show="stage === 1" class="prepare-layer">
         <video
           ref="cameraPrepare"
@@ -151,6 +151,7 @@ export default {
       isAudioProcessing: false,
       payBool: false,
       rafId: '',
+      hasStarted: false,
     };
   },
   computed: {
@@ -192,8 +193,6 @@ export default {
           }
         }
       } catch (e) {
-        console.warn('item 解析失败', e);
-
         if (this.uid) {
           this.fetchTaskList(this.uid);
         } else {
@@ -209,37 +208,70 @@ export default {
     if (this.token) {
       localStorage.setItem('token', this.token);
     }
+    // this.audioPlayer = new Audio();
+    // this.audioPlayer.crossOrigin = 'anonymous';
+    // document.addEventListener(
+    //   'click',
+    //   () => {
+    //     //用真实音频预加载一次
+    //     this.audioPlayer.src =
+    //       'data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAA...';
+    //     this.audioPlayer.play().catch(() => {});
+    //   },
+    //   { once: true },
+    // );
+    // 这里再初始化逻辑
     this.audioPlayer = new Audio();
     this.audioPlayer.crossOrigin = 'anonymous';
-    document.addEventListener(
-      'click',
-      () => {
-        // ✅ 用真实音频预加载一次
-        this.audioPlayer.src =
-          'data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAA...'; // 空音频
-        this.audioPlayer.play().catch(() => {});
-      },
-      { once: true },
-    );
-    // ⚠️ 这里再初始化逻辑
     this.initCurrentTask();
-    this.startPrepare();
-    this.startTrainTimer();
-
-    this.initPose().then(() => {
-      this.startCamera();
-    });
+    // this.startPrepare();
+    // this.startTrainTimer();
+    // this.initPose().then(() => {
+    //   this.startCamera();
+    // });
   },
   beforeDestroy() {
     this.clearAllTimers();
     this.stopCamera();
   },
   methods: {
+    async handleStart() {
+      this.hasStarted = true;
+      // ✅ 1. 解锁音频（必须点击触发）
+      try {
+        this.audioPlayer.src =
+          'data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAA...';
+        await this.audioPlayer.play();
+        this.audioPlayer.pause();
+        this.audioPlayer.currentTime = 0;
+      } catch (e) {
+        console.warn('音频解锁失败', e);
+      }
+      // ✅ 2. 初始化 pose（⚠️ 很关键）
+      try {
+        await this.initPose();
+      } catch (e) {
+        console.error('pose 初始化失败', e);
+      }
+      // ✅ 3. 打开摄像头（⚠️ 必须在点击里）
+      await this.startCamera();
+      // ✅ 4. 再启动业务流程
+      this.startPrepare();
+      this.startTrainTimer();
+    },
+    unlockAudio() {
+      this.audioPlayer
+        .play()
+        .then(() => {
+          this.audioPlayer.pause(); // 播放一下立刻暂停，即可解锁权限
+        })
+        .catch((e) => console.log('音频解锁失败', e));
+    },
     async fetchTaskList(uid) {
       try {
         const res = await uni.request({
           url: 'https://ailmjl.maitianlife.com/api/exercise_plan/today/',
-          method: 'POST', // 或 POST
+          method: 'POST',
           data: { plan_id: uid },
           header: {
             Authorization: this.token,
@@ -248,7 +280,7 @@ export default {
         if (res.data.code === 0) {
           this.taskList = res.data.data.data.day_tasks || [];
           console.log(this.taskList, '1122');
-          // ✅ 拿到数据后初始化任务
+          // 拿到数据后初始化任务
           this.initCurrentTask();
         } else {
           this.taskList = [];
@@ -286,14 +318,14 @@ export default {
     },
     // 修改后的 startDetect 逻辑
     startDetect() {
+      if (!this.poseReady) return; // ✅ 防止未初始化
+
       const video = this.$refs.cameraStage2?.$el || this.$refs.cameraStage2;
 
       const run = () => {
-        // 只有在 Stage 2 且 视频流准备好时才检测
         if (this.stage === 2 && video && video.readyState >= 2) {
           const now = performance.now();
 
-          // 严格控制在 66ms 左右采样一次 (15fps)
           if (now - this.lastDetectTime >= this.detectInterval) {
             this.lastDetectTime = now;
 
@@ -303,7 +335,6 @@ export default {
                 const frame = this.convertFrame(result.landmarks[0]);
                 this.poseFrames.push(frame);
 
-                // 限制数组长度，防止内存溢出（比如只存最近 5 秒的数据，15*5=75帧）
                 if (this.poseFrames.length > 75) {
                   this.poseFrames.shift();
                 }
@@ -313,9 +344,10 @@ export default {
             }
           }
         }
-        // 持续循环
+
         this.rafId = requestAnimationFrame(run);
       };
+
       this.rafId = requestAnimationFrame(run);
     },
     unlockAudio() {
@@ -517,35 +549,27 @@ export default {
       refs.forEach((ref) => {
         if (!ref || !this.cameraStream) return;
 
-        // ⭐ 关键：一定要找到真实 video
         let videoEl = ref.$el || ref;
-
         if (videoEl.tagName !== 'VIDEO') {
           videoEl = videoEl.querySelector('video');
         }
+        if (!videoEl) return;
 
-        if (!videoEl) {
-          console.warn('没找到 video 元素');
-          return;
-        }
+        videoEl.srcObject = this.cameraStream;
+        videoEl.muted = true;
+        videoEl.setAttribute('playsinline', true);
+        videoEl.setAttribute('webkit-playsinline', true);
 
-        try {
-          videoEl.srcObject = this.cameraStream;
-
-          videoEl.muted = true;
-          videoEl.setAttribute('playsinline', true);
-          videoEl.setAttribute('webkit-playsinline', true);
-
-          const playPromise = videoEl.play();
-          this.startDetect();
-          if (playPromise) {
-            playPromise.catch(() => {
-              console.warn('需要用户点击触发播放');
-            });
+        // ✅ 关键：等视频 ready 再 detect
+        videoEl.onloadeddata = () => {
+          if (this.poseReady) {
+            this.startDetect();
           }
-        } catch (err) {
-          console.warn('挂载摄像头流失败', err);
-        }
+        };
+
+        videoEl.play().catch(() => {
+          console.warn('需要用户点击触发播放');
+        });
       });
     },
     stopCamera() {
@@ -1049,12 +1073,10 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
 .switch-btn image {
   width: 16px;
   height: 16px;
 }
-
 .middle-count {
   position: absolute;
   top: 45%;
@@ -1065,11 +1087,9 @@ export default {
   color: #ff6a00;
   z-index: 15;
 }
-
 .middle-count1 {
   font-size: 24px;
 }
-
 .bottom-bar {
   position: absolute;
   bottom: 30px;
@@ -1090,3 +1110,7 @@ export default {
   color: #fff;
 }
 </style>
+<!-- 
+1、在微信打开链接一开始不会默认开启摄像头和音频
+需要一开始就要用户点击调取摄像头和开启音频，然后在进行下一步操作
+-->
