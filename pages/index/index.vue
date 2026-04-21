@@ -169,30 +169,51 @@ export default {
     this.token = query.token || '';
     // this.token =
     //   'MT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNTczMjY5OTQxNTkzODMzNDc4LCJleHAiOjE4MDIyNDE4MTcsInYiOjF9.8b1g-UQEjO2rEzaKHIu9nRz9A17Bnwg2Mn3bPzTQg8I';
-    let parsed = null;
     if (query.item) {
-      console.log(11);
       try {
-        parsed = JSON.parse(decodeURIComponent(query.item));
+        const parsed = JSON.parse(decodeURIComponent(query.item));
+        // ✅ 关键判断：空对象也算无效
+        const isEmptyObject =
+          parsed &&
+          typeof parsed === 'object' &&
+          !Array.isArray(parsed) &&
+          Object.keys(parsed).length === 0;
+
+        if (Array.isArray(parsed)) {
+          this.taskList = parsed;
+          console.log(1);
+        } else if (parsed && typeof parsed === 'object' && !isEmptyObject) {
+          this.taskList = [parsed];
+          console.log(2);
+        } else {
+          console.log(3);
+          // ❗ 空对象，走接口
+          if (this.uid) {
+            this.fetchTaskList(this.uid);
+            console.log(4);
+          } else {
+            this.taskList = [];
+            console.log(5);
+          }
+        }
       } catch (e) {
-        parsed = null;
+        console.warn('item 解析失败', e);
+        console.log(6);
+
+        if (this.uid) {
+          this.fetchTaskList(this.uid);
+          console.log(7);
+        } else {
+          this.taskList = [];
+          console.log(8);
+        }
       }
-    }
-    if (
-      parsed &&
-      ((Array.isArray(parsed) && parsed.length > 0) ||
-        (typeof parsed === 'object' && Object.keys(parsed).length > 0))
-    ) {
-      // ✅ 有数据
-      this.taskList = Array.isArray(parsed) ? parsed : [parsed];
-      console.log(22);
     } else if (this.uid) {
-      // ✅ 空对象 / 空数组 → 走接口
+      console.log(9);
       this.fetchTaskList(this.uid);
-      console.log(33);
     } else {
+      console.log(10);
       this.taskList = [];
-      console.log(44);
     }
     this.payBool = query.payBool === 'true';
     if (this.token) {
